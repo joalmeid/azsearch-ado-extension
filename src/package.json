@@ -1,0 +1,44 @@
+{
+  "name": "azsearch-ado-extension",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Azure Search extension for Azure DevOps",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "clean": "rimraf ./*.vsix",
+    "prebuild": "cd azsearch-create-ds-task\\createdsV1 && npm install --save-dev",
+    "build": "tsc --listEmittedFiles -p . ",
+    "test": "cd azsearch-create-ds-task\\createdsV1 && mocha tests/_suite.js",
+    "compile": "npm run clean && npm run build",
+    "package": "npm run build && tfx extension create --rev-version --manifest-globs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://dev.azure.com/joalmeid/azsearch-extensions/_git/azsearch-extensions"
+  },
+  "keywords": [
+    "Azure Search",
+    "Knowledge Mining",
+    "Azure",
+    "DevOps",
+    "extensions"
+  ],
+  "author": "joalmeid@microsoft.com",
+  "license": "MIT",
+  "dependencies": {
+    "azure-pipelines-task-lib": "^2.7.7"
+  },
+  "bugs": {
+    "url": "https://dev.azure.com/joalmeid/_git/azsearch-extensions/_wiki/Issues"
+  },
+  "homepage": "http://aka.ms/azsearch-devops",
+  "devDependencies": {
+    "tfx-cli": "^0.6.4",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^11.10.4",
+    "@types/q": "^1.5.1"
+  }
+}

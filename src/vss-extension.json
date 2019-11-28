@@ -1,0 +1,171 @@
+{
+    "manifestVersion": 1,
+    "id": "azsearch-ado-extension",
+    "name": "Azure Search extension for Azure DevOps",
+    "version": "0.0.1",
+    "scopes": [],
+    "description": "Azure DevOps Extension for Azure Search CI/CD related tasks.",
+    "publisher": "joalmeid",
+    "galleryFlags": [
+        "Preview"
+    ],
+    "files": [
+        {
+            "path": "azsearch-1-task"
+        },
+        {
+            "path": "static/images",
+            "addressable": true
+        }
+    ],
+    "icons": {
+        "default": "static/images/azSearch-128-logo.png"
+    },
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "demands": [
+        "api-version/3.0"
+    ],
+    "tags": [
+        "Azure Search",
+        "Pipelines",
+        "ci",
+        "cd",
+        "continuous integration",
+        "continuous deployment"
+    ],
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "screenshots": [
+        {
+            "path": "static/images/azsearch-azsearch-create-ds-task-ui.png"
+        },
+        {
+            "path": "static/images/azsearch-service-endpoint.png"
+        }
+    ],
+    "content": {
+        "license": {
+            "path": "license.md"
+        },
+        "details": {
+            "path": "overview.md"
+        }
+    },
+    "links": {
+        "getstarted": {
+            "uri": "https://dev.azure.com/joalmeid/_git/azsearch-extensions/_wiki/Getting-Started"
+        },
+        "support": {
+            "uri": "https://dev.azure.com/joalmeid/_git/azsearch-extensions/_wiki?pagePath=%2FAzSearch%20DevOps%20Extension%2FSupport"
+        },
+        "issues": {
+            "uri": "https://dev.azure.com/joalmeid/_git/azsearch-extensions/_wiki?pagePath=%2FAzSearch%20DevOps%20Extension%2Fissues"
+        },
+        "repository": {
+            "uri": "https://dev.azure.com/joalmeid/_git/azsearch-extensions"
+        },
+        "learn": {
+            "uri": "https://dev.azure.com/joalmeid/_git/azsearch-extensions/_wiki?pagePath=%2FAzSearch%20DevOps%20Extension"
+        }
+    },
+    "branding": {
+        "color": "rgb(255, 217, 0)",
+        "theme": "light"
+    },
+    "contributions": [
+        {
+            "id": "azsearch-create-ds-task",
+            "targets": [ "ms.vss-distributed-task.tasks" ],
+            "type": "ms.vss-distributed-task.task",
+            "properties": {
+                "name": "azsearch-create-ds-task"
+            }
+        },
+        {
+            "id": "azsearch-endpoint-type",
+            "description": "Service Endpoint for a Azure DevOps API connection",
+            "type": "ms.vss-endpoint.service-endpoint-type",
+            "targets": [
+                "ms.vss-endpoint.endpoint-types"
+            ],
+            "properties": {
+                "name": "azSearchAzuredevopsAPI",
+                "displayName": "AzSearch Azure DevOps API",
+                "url": {
+                    "displayName": "i18n:Organization Url",
+                    "value": "https://dev.azure.com/[organization]",
+                    "isVisible": "true"
+                },
+                "dataSources": [
+                    {
+                        "name": "TestConnection",
+                        "endpointUrl": "{{endpoint.url}}/_apis/projects",
+                        "resultSelector": "jsonpath:$[*].Key"
+                    },
+                    {
+                        "name": "projects",
+                        "endpointUrl": "{{endpoint.url}}/_apis/projects",
+                        "resultSelector": "jsonpath:$.value[?(@.state=='wellFormed')]"
+                    },
+                    {
+                        "name": "buildDefinitions",
+                        "endpointUrl": "{{endpoint.url}}/{{project}}/_apis/build/definitions",
+                        "resultSelector": "jsonpath:$.value[?(@.quality=='definition')]"
+                    },
+                    {
+                        "name": "releaseDefinitions",
+                        "endpointUrl": "{{endpoint.releaseUrl}}/{{project}}/_apis/release/definitions",
+                        "resultSelector": "jsonpath:$.value[?(@.isDeleted==false)]"
+                    }
+                ],
+                "inputDescriptors": [
+                    {
+                        "id": "releaseUrl",
+                        "name": "i18n:Release API Url",
+                        "description": "The url of the release API",
+                        "inputMode": "textbox",
+                        "isConfidential": false,
+                        "validation": {
+                            "isRequired": true,
+                            "dataType": "string",
+                            "maxLength": 300
+                        },
+                        "values": {
+                            "inputId": "releaseUrlInput",
+                            "defaultValue": "https://vsrm.dev.azure.com/[organization]"
+                        }
+                    }
+                ],
+                "authenticationSchemes": [
+                    {
+                        "type": "ms.vss-endpoint.endpoint-auth-scheme-token",
+                        "headers": [
+                            {
+                                "name": "Authorization",
+                                "value": "Basic {{ #base64 \"token\" \":\" endpoint.apitoken }}"
+                            }
+                        ],
+                        "inputDescriptors": [
+                            {
+                                "id": "apitoken",
+                                "name": "Personal Access Token",
+                                "description": "Personal access token.",
+                                "inputMode": "passwordbox",
+                                "isConfidential": true,
+                                "validation": {
+                                    "isRequired": true,
+                                    "dataType": "string"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
