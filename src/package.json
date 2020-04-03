@@ -15,9 +15,13 @@
     "compile": "npm run clean && npm run build",
     "package": "npm run build && tfx extension create --rev-version --manifest-globs"
   },
+  "homepage": "http://aka.ms/azsearch-devops",
   "repository": {
     "type": "git",
     "url": "https://dev.azure.com/joalmeid/azsearch-extensions/_git/azsearch-extensions"
+  },
+  "bugs": {
+    "url": "https://dev.azure.com/joalmeid/_git/azsearch-extensions/_wiki/Issues"
   },
   "keywords": [
     "Azure Search",
@@ -29,16 +33,13 @@
   "author": "joalmeid@microsoft.com",
   "license": "MIT",
   "dependencies": {
-    "azure-pipelines-task-lib": "^2.7.7"
+    "@types/node": "^6.0.101",
+    "azure-pipelines-task-lib": "2.8.0",
+    "ms-rest-azure": "^3.0.0"
   },
-  "bugs": {
-    "url": "https://dev.azure.com/joalmeid/_git/azsearch-extensions/_wiki/Issues"
-  },
-  "homepage": "http://aka.ms/azsearch-devops",
   "devDependencies": {
     "tfx-cli": "^0.6.4",
     "@types/mocha": "^5.2.6",
-    "@types/node": "^11.10.4",
-    "@types/q": "^1.5.1"
+    "@types/node": "^11.10.4"
   }
 }
