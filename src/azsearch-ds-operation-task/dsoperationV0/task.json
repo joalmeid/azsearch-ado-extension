@@ -1,15 +1,15 @@
 {
     "id": "a7773296-2290-4fd7-9de1-c8da4e853d4d",
-    "name": "azsearch-create-ds-task",
-    "friendlyName": "Create Azure Search Data Source",
-    "description": "Create Azure Search Data Source",
+    "name": "DataSourceOperation",
+    "friendlyName": "azsearch-datasourceoperation-task",
+    "description": "Azure Cognitive Search Data Source Operation",
     "helpMarkDown": "",
     "category": "Utility",
     "author": "joalmeid",
     "version": {
-        "Major": 1,
+        "Major": 0,
         "Minor": 0,
-        "Patch": 7
+        "Patch": 1
     },
     "demands": [],
     "visibility": [

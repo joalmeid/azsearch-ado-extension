@@ -11,7 +11,7 @@
   ],
   "files": [
     {
-      "path": "azsearch-1-task"
+      "path": "azsearch-ds-operation-task"
     },
     {
       "path": "static/images",
@@ -19,7 +19,7 @@
     }
   ],
   "icons": {
-    "default": "static/images/azSearch-128-logo.png"
+    "default": "static/images/azsearch-extension-logo-128.png"
   },
   "targets": [
     {
@@ -42,10 +42,13 @@
   ],
   "screenshots": [
     {
-      "path": "static/images/azsearch-azsearch-create-ds-task-ui.png"
+      "path": "static/images/marketplace-azsearch-ado-datasource-task-yaml.png"
     },
     {
-      "path": "static/images/azsearch-service-endpoint.png"
+      "path": "static/images/marketplace-azsearch-ado-index-task-ui-classical.png"
+    },
+    {
+      "path": "static/images/azsearch-extension-banner-128.png"
     }
   ],
   "content": {
@@ -61,7 +64,7 @@
       "uri": " https://github.com/joalmeid/azsearch-ado-extension/"
     },
     "support": {
-      "uri": " https://github.com/joalmeid/azsearch-ado-extension/"
+      "uri": " https://github.com/joalmeid/azsearch-ado-extension/issues"
     },
     "issues": {
       "uri": " https://github.com/joalmeid/azsearch-ado-extension/issues"
@@ -70,20 +73,27 @@
       "uri": " https://github.com/joalmeid/azsearch-ado-extension"
     },
     "learn": {
-      "uri": "https://github.com/joalmeid/azsearch-ado-extension/"
+      "uri": "https://github.com/joalmeid/azsearch-ado-extension/blob/master/src/overview.md"
     }
   },
-  "branding": {
-    "color": "rgb(255, 217, 0)",
-    "theme": "light"
+  "repository": {
+    "type": "git",
+    "uri": "https://github.com/joalmeid/azsearch-ado-extension"
   },
+  "badges": [
+    {
+        "href": "https://dev.azure.com/joalmeid/azsearch-ado-extension/_build/latest?definitionId=165&branchName=master",
+        "uri": "https://dev.azure.com/joalmeid/azsearch-ado-extension/_apis/build/status/azsearch-ado-extension-CICD?branchName=master",
+        "description": "CICD multi-stage pipeline for the project Azure Cognitive Search Extension for Azure Pipelines"
+    }
+  ],
   "contributions": [
     {
-      "id": "azsearch-create-ds-task",
+      "id": "azsearch-ds-operation-task",
       "targets": [ "ms.vss-distributed-task.tasks" ],
       "type": "ms.vss-distributed-task.task",
       "properties": {
-          "name": "azsearch-create-ds-task"
+          "name": "azsearch-ds-operation-task"
       }
     }
   ]

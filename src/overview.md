@@ -1,6 +1,6 @@
 # Azure Search Extension
 
-This extension allows you to include [**Azure Cognitive Search**(https://docs.microsoft.com/en-us/azure/search/)] operations within your DevOps practices - specifically, in your CICD pipelines. Currently the extension includes all main operations around the main Azure Search concepts like **Data Source**, **Index** and **Indexer**.
+This extension allows you to include [**Azure Cognitive Search**](https://docs.microsoft.com/en-us/azure/search/) operations within your DevOps practices - specifically, in your CICD pipelines. Currently the extension includes all main operations around the main Azure Search concepts like **Data Source**, **Index** and **Indexer**.
 It doesn't matter if you're more experienced with Azure Pipelines with the **YAML pipelines** or **Classic Editor**.
 
 ![Azure Search Extension Tasks](https://todo-image.uri/image.png)

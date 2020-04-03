@@ -1,5 +1,5 @@
 {
-  "name": "azsearch-createds",
+  "name": "azsearch-datasourceoperation-task",
   "version": "0.0.1",
   "description": "Create an Azure Search Data Source",
   "main": "index.js",

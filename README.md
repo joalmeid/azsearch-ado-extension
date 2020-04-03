@@ -51,8 +51,8 @@ This task extension is publicly available for [free](https://marketplace.visuals
         "type": "node",
           "request": "launch",
           "name": "Launch Task",
-          "program": "${workspaceFolder}/create-ds-task/createdsV1/main.js",
-          "cwd": "${workspaceRoot}/create-ds-task/createdsV1",
+          "program": "${workspaceFolder}/azsearch-ds-operation-task/dsoperationV1/main.js",
+          "cwd": "${workspaceRoot}/azsearch-ds-operation-task/dsoperationV1",
           "runtimeExecutable": null,
           "runtimeArgs": [ "--nolazy" ],
           "env": {

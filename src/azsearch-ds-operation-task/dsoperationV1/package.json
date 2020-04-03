@@ -1,5 +1,5 @@
 {
-  "name": "azsearch-createds",
+  "name": "azsearch-datasourceoperation-task",
   "main": "main.js",
   "dependencies": {
     "azure-devops-node-api": "^7.0.0",
