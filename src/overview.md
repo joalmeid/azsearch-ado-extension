@@ -1,9 +1,9 @@
 # Azure Search Extension
 
-This extension allows you to include Azure Search operations within your DevOps practices - specifically, in your CICD pipelines. Currently the extension includes all main operations around the main Azure Search concepts like **Data Source**, **Index** and **Indexer**.
+This extension allows you to include [**Azure Cognitive Search**(https://docs.microsoft.com/en-us/azure/search/)] operations within your DevOps practices - specifically, in your CICD pipelines. Currently the extension includes all main operations around the main Azure Search concepts like **Data Source**, **Index** and **Indexer**.
 It doesn't matter if you're more experienced with Azure Pipelines with the **YAML pipelines** or **Classic Editor**.
 
-![Azure Search Extension Tasks](https://user-images.githubusercontent.com/4800035/78353255-ab290c80-75a1-11ea-9472-e6161ea278c3.png)
+![Azure Search Extension Tasks](https://todo-image.uri/image.png)
 
 ### Highlights ###
 > :boom: This extension is ***cross platform***. You can run it from **Windows**, **Linux** or **macOS** self-hosted agents.
@@ -15,15 +15,15 @@ The Azure Search Extension include the following contributions:
 
 1. Data Source Operations Task
 
-![Data Source Operations Task](https://user-images.githubusercontent.com/4800035/78352157-d3b00700-759f-11ea-86c8-5b8884362141.png)
+![Data Source Operations Task](https://todo-image.uri/image.png)
 
 2. Index Operations Task
 
-![Index Operations Task](https://user-images.githubusercontent.com/4800035/78352156-d3177080-759f-11ea-83d9-5df548b4487d.png)
+![Index Operations Task](https://todo-image.uri/image.png)
 
 2. Indexer Operations Task
 
-![Indexer Operations Task](https://user-images.githubusercontent.com/4800035/78352156-d3177080-759f-11ea-83d9-5df548b4487d.png)
+![Indexer Operations Task](https://todo-image.uri/image.png)
 
 
 ### Prerequisites ###
