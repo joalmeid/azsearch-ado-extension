@@ -6,17 +6,17 @@ const fsPromises = require('fs').promises;
 import * as msRestAzure from 'ms-rest-azure';
 import { AzureServiceClient } from 'ms-rest-azure';
 import { UrlBasedRequestPrepareOptions } from 'ms-rest';
-import { CreateDatasourceTaskParameters } from '../azure-devops-models'
-import { Datasource, DatasourceOptions } from '../azsearch-models'
+import { DatasourceOperationTaskParameters } from '../azure-devops-models'
+import { Datasource, DatasourceOptions } from '../azsearch-models/index_AnalyzeRequest'
 
 const AZSEARCH_ARMAPI_VERSION: string = '2018-11-01-preview'
 
 export class AzureSearchController {
 
-  private taskParameters: CreateDatasourceTaskParameters;
+  private taskParameters: DatasourceOperationTaskParameters;
   private azureClient:AzureServiceClient; 
 
-  constructor(taskParameters: CreateDatasourceTaskParameters) {
+  constructor(taskParameters: DatasourceOperationTaskParameters) {
     this.taskParameters = taskParameters;
   }
 
@@ -41,7 +41,7 @@ export class AzureSearchController {
         };
 
         //TODO
-        let newBlueprint: DataSource = await this.ImportBlueprint(this.azureClient, datasourceOption);
+        // let newBlueprint: DataSource = await this.ImportBlueprint(this.azureClient, datasourceOption);
 
         resolve(true)
       } catch(error) { reject(error); }

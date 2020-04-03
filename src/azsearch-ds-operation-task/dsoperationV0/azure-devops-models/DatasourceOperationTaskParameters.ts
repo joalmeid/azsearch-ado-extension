@@ -1,6 +1,6 @@
 import tl = require("azure-pipelines-task-lib/task");
 
-export class CreateDatasourceTaskParameters {
+export class DatasourceOperationTaskParameters {
 
     // Authentication details
     public connectedServiceName: string;
@@ -18,7 +18,7 @@ export class CreateDatasourceTaskParameters {
     public azsearchName: string;
     public datasourceName: string;
 
-    public async getCreateDatasourceTaskParameters() : Promise<CreateDatasourceTaskParameters> {
+    public async getDatasourceOperationTaskParameters() : Promise<DatasourceOperationTaskParameters> {
       this.connectedServiceName = tl.getInput('ConnectedServiceName', true);
       if(this.connectedServiceName==='debug'){ // local debug
         this.subscriptionId = tl.getInput('SubscriptionId', true);
