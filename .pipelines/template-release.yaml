@@ -1,0 +1,88 @@
+###################################################
+#
+# Azure Pipelines YAML template
+# - Query Current published extension version
+# - Publish an Azure Devops extension
+# - Waits for extension Validation to complete
+# - Creates Github Release (PROD)
+###################################################
+# Requires the following variables:
+# Build.Repository.Name
+###################################################
+
+
+parameters:
+  publisherId: # Published Id @ https://marketplace.visualstudio.com/manage
+  projName: # Required: Extension Id
+  marketplaceServiceConnection: # Required: Service connection for Visual Studio Marketplace
+  artifactName: 'extension-artifact' # Artifact name
+  extensionVisibility: private # private | privatepreview | publicpreview | public
+  extensionTag: # Extension Tag to append to the extension ID
+  extensionName: 'Azure Search Extension' # Extension Name to override manifests's one
+
+steps:
+  - download: current
+    artifact: ${{parameters.artifactName}}
+    patterns: '**/*'
+
+  - task: TfxInstaller@2
+    displayName: 'Use Node CLI for Azure DevOps: v0.7.x'
+    inputs:
+      version: v0.7.x
+    enabled: false
+
+  - task: QueryAzureDevOpsExtensionVersion@2
+    displayName: 'Query Extension Version'
+    inputs:
+      connectTo: 'VsTeam'
+      connectedServiceName: ${{parameters.marketplaceServiceConnection}}
+      publisherId: ${{parameters.publisherId}}
+      extensionId: ${{parameters.projName}}
+      extensionTag: ${{parameters.extensionTag}}
+      versionAction: 'Patch'
+      outputVariable: 'ExtensionVersion'
+      setBuildNumber: 'true'
+
+  - task: PublishAzureDevOpsExtension@2
+    displayName: 'Publish Extension'
+    inputs:
+      connectTo: 'VsTeam'
+      connectedServiceName: ${{parameters.marketplaceServiceConnection}}
+      fileType: vsix
+      vsixFile: '$(Pipeline.Workspace)/${{parameters.artifactName}}/${{parameters.publisherId}}.${{parameters.projName}}-*.vsix'
+      publisherId: ${{parameters.publisherId}}
+      extensionName: ${{parameters.extensionName}}
+      updateTasksVersionType: 'patch'
+      extensionPricing: free
+      outputVariable: ExtensionOutputPath
+      extensionVisibility: ${{parameters.extensionVisibility}}
+      extensionTag: ${{parameters.extensionTag}}
+      extensionVersion: $(ExtensionVersion)
+
+  - task: IsAzureDevOpsExtensionValid@2
+    displayName: 'Extension Validation'
+    inputs:
+      connectTo: 'VsTeam'
+      connectedServiceName: ${{parameters.marketplaceServiceConnection}}
+      method: 'id'
+      publisherId: ${{parameters.publisherId}}
+      extensionId: ${{parameters.projName}}
+      extensionTag: ${{parameters.extensionTag}}
+      extensionVersion: $(ExtensionVersion)
+
+  - task: GitHubRelease@1
+    condition: and(succeeded(), eq(variables['System.StageDisplayName'], 'PROD'))
+    displayName: 'Create Github Release'
+    inputs:
+      gitHubConnection: 'gh-joalmeid'
+      repositoryName: '$(Build.Repository.Name)'
+      action: 'create'
+      target: '$(Build.SourceVersion)'
+      tagSource: userSpecifiedTag
+      tag: '$(ExtensionVersion)'
+      title: 'Release-$(ExtensionVersion)'
+      assets: '$(Pipeline.Workspace)/${{parameters.artifactName}}/${{parameters.publisherId}}.${{parameters.projName}}-*.vsix'
+      changeLogCompareToRelease: 'lastFullRelease'
+      changeLogType: 'commitBased'	  
+
+

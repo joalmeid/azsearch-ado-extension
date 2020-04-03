@@ -1,0 +1,95 @@
+###################################################
+#
+# Azure Search Extension for Azure Pipelines
+# (Azure Pipelines) CI
+#
+###################################################
+
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+      include:
+      - /src/*
+
+name: $(Date:yyyyMMdd)$(Rev:.r)
+
+variables:
+  agentPool: 'ubuntu-latest'
+  projName: azsearch-extension
+  artifactName: $(projName)-ext
+  publisherId: joalmeid
+  vsMarketplaceServiceConnetion: vs-marketplace
+
+stages:
+- stage: Build_Ext
+  displayName: Build Extension
+  jobs:
+  - job: BuildJob
+    displayName: Build Extension
+    pool: 
+      vmImage: $(agentPool)
+    steps:
+    - template: template-build.yaml
+      parameters:
+        publisherId: $(publisherId)
+        projName: $(projName)
+        marketplaceServiceConnection: $(vsMarketplaceServiceConnetion)
+        artifactName: $(artifactName)
+
+- stage: Publish_Ext_Dev
+  displayName: DEV
+  dependsOn: Build_Ext
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  jobs:
+  - deployment: PublishExtDev
+    displayName: Publish Extension
+    pool:
+      vmImage: $(agentPool)
+    environment: DEV
+    strategy:
+      runOnce:
+        deploy: 
+          steps:
+          - template: template-release.yaml
+            parameters:
+              publisherId: $(publisherId)
+              projName: $(projName)
+              marketplaceServiceConnection: $(vsMarketplaceServiceConnetion)
+              artifactName: $(artifactName)
+              extensionName: 'Azure Search Extension (dev)'
+              extensionVisibility: private
+              extensionTag: -dev
+          - task: ShareAzureDevOpsExtension@2
+            displayName: 'Share Extension'
+            inputs:
+              connectTo: 'VsTeam'
+              connectedServiceName: $(vsMarketplaceServiceConnetion)
+              method: 'id'
+              publisherId: $(publisherId)
+              extensionId: $(projName)
+              extensionTag: -dev
+              accounts: $(publisherId)
+
+- stage: Publish_Ext_Prod
+  displayName: PROD
+  dependsOn: Publish_Ext_Dev
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  jobs:
+  - deployment: PublishExtDev
+    displayName: Publish Extension
+    pool:
+      vmImage: $(agentPool)
+    environment: PROD
+    strategy:
+      runOnce:
+        deploy: 
+          steps:
+          - template: template-release.yaml
+            parameters:
+              publisherId: $(publisherId)
+              projName: $(projName)
+              marketplaceServiceConnection: $(vsMarketplaceServiceConnetion)
+              artifactName: $(artifactName)
+              extensionVisibility: public
