@@ -10,7 +10,9 @@ It doesn't matter if you're more experienced with Azure Pipelines with the **YAM
 
 ### Highlights ###
 > :boom: This extension is ***cross platform***. You can run it from **Windows**, **Linux** or **macOS** self-hosted agents.
+>
 > :muscle: This extension allows you to include Azure Search operations in your DevOps practices. It covers operations on **Data Sources**, **Indexes** and **Indexers**.
+>
 > :rocket: Allows you to include data prep and ingest it into your solution environments
 
 The Azure Search Extension include the following contributions:
