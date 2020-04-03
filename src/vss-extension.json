@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "azsearch-ado-extension",
-  "name": "Azure Search extension for Azure DevOps",
+  "name": "Azure Search Extension for Azure Pipelines",
   "version": "0.0.1",
   "scopes": [],
   "description": "Azure DevOps Extension for Azure Search CI/CD related tasks.",
