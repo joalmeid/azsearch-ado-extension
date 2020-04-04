@@ -7,7 +7,7 @@ import * as msRestAzure from 'ms-rest-azure';
 import { AzureServiceClient } from 'ms-rest-azure';
 import { UrlBasedRequestPrepareOptions } from 'ms-rest';
 import { DatasourceOperationTaskParameters } from '../azure-devops-models'
-import { Datasource, DatasourceOptions } from '../azsearch-models/index_AnalyzeRequest'
+import { DataSource, DatasourceOptions } from '../azsearch-models'
 
 const AZSEARCH_ARMAPI_VERSION: string = '2018-11-01-preview'
 
@@ -62,8 +62,8 @@ export class AzureSearchController {
     });
   }
 
-  private async GetDatasource(azureClient:AzureServiceClient, datasourceOption: DatasourceOptions): Promise<Datasource> {
-    return new Promise<Datasource>(async (resolve, reject) => {
+  private async GetDatasource(azureClient:AzureServiceClient, datasourceOption: DatasourceOptions): Promise<DataSource> {
+    return new Promise<DataSource>(async (resolve, reject) => {
       try{
         let options: UrlBasedRequestPrepareOptions = {
               method: 'GET',
@@ -72,7 +72,7 @@ export class AzureSearchController {
               deserializationMapper: null
           };
 
-        let request = await azureClient.sendRequest(options, (err, result: Datasource, request, response) => {
+        let request = await azureClient.sendRequest(options, (err, result: DataSource, request, response) => {
             if (err) {
               tl.debug(tl.loc("AzureRESTRequestError", err.message));
               reject(tl.loc("AzureRESTRequestError", err.message));
@@ -83,7 +83,8 @@ export class AzureSearchController {
               tl.debug(tl.loc("AzureSearchDatasourceNotFound"));
               resolve(null);
             } else {
-              tl.debug(tl.loc("AzureSearchDatasourceFound", result.id, result.name, result.type));
+              // tl.debug(tl.loc("AzureSearchDatasourceFound", result.id, result.name, result.type));
+              tl.debug(tl.loc("AzureSearchDatasourceFound", result.name));
               resolve (result);
             }
         });

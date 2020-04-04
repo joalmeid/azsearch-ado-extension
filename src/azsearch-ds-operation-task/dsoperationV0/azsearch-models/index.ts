@@ -1,5 +1,4 @@
 export * from './dataSource';
-export * from './dataSources';
 export * from './dataContainer';
 export * from './dataSourceCredentials';
 export * from './indexer';
