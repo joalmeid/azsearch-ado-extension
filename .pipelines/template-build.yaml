@@ -33,7 +33,7 @@ steps:
     inputs:
       command: custom
       workingDir: 'src'
-      verbose: false
+      verbose: true
       customCommand: 'run build'
 
   - task: TfxInstaller@2
