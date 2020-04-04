@@ -17,7 +17,7 @@ name: $(Date:yyyyMMdd)$(Rev:.r)
 
 variables:
   agentPool: 'ubuntu-latest'
-  projName: azsearch-extension
+  projName: azsearch-ado-extension
   artifactName: $(projName)-ext
   publisherId: joalmeid
   vsMarketplaceServiceConnetion: vs-marketplace
