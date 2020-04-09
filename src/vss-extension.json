@@ -11,7 +11,7 @@
   ],
   "files": [
     {
-      "path": "azsearch-ds-operation-task"
+      "path": "azsearch-indexer-operation-task"
     },
     {
       "path": "static/images",
@@ -89,11 +89,11 @@
   ],
   "contributions": [
     {
-      "id": "azsearch-ds-operation-task",
+      "id": "azsearch-indexer-operation-task",
       "targets": [ "ms.vss-distributed-task.tasks" ],
       "type": "ms.vss-distributed-task.task",
       "properties": {
-          "name": "azsearch-ds-operation-task"
+          "name": "azsearch-indexer-operation-task"
       }
     }
   ]

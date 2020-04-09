@@ -1,0 +1,201 @@
+{
+  "id": "a7773296-2290-4fd7-9de1-c8da4e853d4d",
+  "name": "IndexerOperation",
+  "friendlyName": "azsearch-indexeroperation-task",
+  "description": "Azure Cognitive Search Data Source Operation",
+  "helpUrl": "https://github.com/joalmeid/azsearch-ado-extension/wiki",
+  "helpMarkDown": "[Learn more about this task](http://aka.ms/azsearch-devops/wiki)",
+  "category": "Utility",
+  "releaseNotes": "Works with cross-platform agents (Linux, macOS, or Windows)",
+  "author": "João Almeida",
+  "version": {
+    "Major": 1,
+    "Minor": 0,
+    "Patch": 1
+  },
+  "demands": [],
+  "visibility": [
+    "Build",
+    "Release"
+  ],
+  "minimumAgentVersion": "2.160.0",
+  "instanceNameFormat": "Data Source Operation: $(avPipeline)",
+  "inputs": [
+    {
+      "name": "ConnectedServiceName",
+      "aliases": [
+        "azureSubscription"
+      ],
+      "type": "connectedService:AzureRM",
+      "label": "Azure subscription",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Select the Azure subscription where the Azure Search resource is provisioned."
+    },
+    {
+      "name": "ResourceGroupName",
+      "type": "string",
+      "label": "Resource Group Name",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Resource Group name."
+    },
+    {
+      "name": "AzureCognitiveSearch",
+      "label": "Azure Cognitive Search resource",
+      "type": "pickList",
+      "helpMarkDown": "Select an Azure Cognitive Search in the selected Azure Subscription.",
+      "defaultValue": "",
+      "required": true,
+      "properties": {
+        "EditableOptions": "True"
+      }
+    },
+    {
+      "name": "AzureSearchName",
+      "type": "string",
+      "label": "Azure Search Name",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Azure Search name."
+    },
+    {
+      "name": "IndexerOperation",
+      "label": "Operation",
+      "helpMarkDown": "Indexer Operation to execute",
+      "type": "pickList",
+      "required": true,
+      "options": {
+        "createUpdateDataSource": "Create/Update DataSource",
+        "deleteDataSource": "Delete Datasource",
+        "listDataSources": "List Datasource",
+        "createUpdateIndexer": "Create/Update Indexer",
+        "deleteIndexer": "Delete Indexer",
+        "listIndexers": "List Indexers",
+        "runIndexer": "Run Indexer",
+        "resetIndexer": "Run Indexer",
+        "getIndexerStatus": "Get Indexer Status"
+      },
+      "defaultValue": "createUpdateDataSource"
+    },
+    {
+      "name": "JsonPayloadLocation",
+      "type": "pickList",
+      "label": "Json Location",
+      "defaultValue": "scriptPath",
+      "required": true,
+      "helpMarkDown": "Type of Json Payload: File path or Inline Json",
+      "options": {
+          "inlineJson": "Inline Json",
+          "filePath": "File path"
+      }
+    },
+    {
+      "name": "JsonPayloadPath",
+      "type": "filePath",
+      "label": "Json File Path",
+      "defaultValue": "",
+      "required": true,
+      "visibleRule": "JsonPayloadLocation = filePath",
+      "helpMarkDown": "Fully qualified path of the Json payload file or a path relative to the the default working directory"
+    },
+    {
+      "name": "InlineJsonPayload",
+      "type": "multiLine",
+      "label": "Inline Json Payload",
+      "defaultValue": "",
+      "required": true,
+      "visibleRule": "JsonPayloadLocation = inlineJson",
+      "helpMarkDown": "You can write your Json payload inline here.",
+      "properties": {
+          "resizable": "true",
+          "rows": "10",
+          "maxLength": "5000"
+      }
+    },
+    {
+      "name": "DatasourceName",
+      "type": "string",
+      "label": "Datasource Name",
+      "defaultValue": "",
+      "required": false,
+      "visibleRule": "IndexerOperation = createUpdateDataSource || IndexerOperation = deleteDataSource",
+      "helpMarkDown": "Datasource name."
+    },
+    {
+      "name": "IndexerName",
+      "type": "string",
+      "label": "Indexer Name",
+      "defaultValue": "",
+      "required": false,
+      "visibleRule": "IndexerOperation = createUpdateIndexer || IndexerOperation = getIndexerStatus || IndexerOperation = resetIndexer",
+      "helpMarkDown": "Indexer name."
+    }
+  ],
+  "dataSourceBindings": [
+    {
+      "target": "ResourceGroupName",
+      "endpointId": "$(ConnectedServiceName)",
+      "dataSourceName": "AzureResourceGroups"
+    },
+    {
+      "target": "resourceName",
+      "endpointId": "$(ConnectedServiceName)",
+      "dataSourceName": "AzureRMResourcesInRGBasedOnType",
+      "parameters": {
+          "ResourceGroupName": "$(ResourceGroupName)",
+          "ResourceType": "Microsoft.Search/searchServices"
+      },
+      "resultTemplate": "{ \"Value\" : \"{{{name}}}\", \"DisplayValue\" : \"{{{name}}}\" }"
+    }
+  ],
+
+  "outputVariables": [
+    {
+      "name": "IndexerOptionOutput",
+      "description": "Stores the output of the Indexer operation"
+    }
+  ],
+  "execution": {
+    "Node": {
+      "target": "main.js"
+    }
+  },
+  "messages": {
+    "ParsedTaskInputsLabel": "Parsed task inputs:",
+    "InputsconnectedServiceNameLabel": "ConnectedServiceName: %s",
+    "InputsSubscriptionIdLabel": "SubscriptionId: %s",
+    "InputTenantIdLabel": "TenantId: %s",
+    "InputClientIdLabel": "ClientId: %s",
+    "InputClientSecretLabel": "ClientSecret: %s",
+    "InputSchemeLabel": "Scheme: %s",
+    "InputServiceConnectionScopeLabel": "ServiceConnectionScope: %s",
+    "InputDatasourceNameLabel": "DatasourceName: %s",
+    "InputIndexerNameLabel": "IndexerName: %s",
+    "InputIndexNameLabel": "IndexName: %s",
+    
+    "AzureRESTRequestError": "Error calling Azure REST API. Error: %s",
+    "AzureResourceNotFound": "The subscription '%s', resource group '%s', or Search service '%s' could not be found.",
+    "AzureSearchBadRequest": "Azure Search REST API error: %s.",
+    "AzureSearchDatasourceUpdated": "Azure Search Datasource '%s' updated.",
+    "AzureSearchDatasourceCreated": "Azure Search Datasources '%s' created.",
+    "AzureSearchDatasourcesFound": "Azure Search Datasources found: total of %s.",
+    "AzureSearchDatasourceDeleted": "Azure Search Datasource '%s' deleted.",
+    "AzureSearchIndexerCreated": "Azure Search Indexer '%s' created.",
+    "AzureSearchIndexerUpdated": "Azure Search Indexer '%s' updated.",
+    "AzureSearchIndexersFound": "Azure Search Datasources found: total of %s.",
+    "AzureSearchIndexersDeleted": "Azure Search Indexer '%s' deleted.",
+    "AzureSearchIndexerReset": "Azure Search Indexer '%s' reset successfully.",
+    "AzureSearchIndexerRun": "Azure Search Indexer '%s' runned on-demand.",
+    "AzureSearchIndexerStatus": "Collected status from Azure Search Indexer '%s'.",
+    
+    
+
+    "AzureSearchDatasourceNotFound": "Azure Search Datasource not found.",
+    "AzureSearchDatasourceFound": "Found Azure Search Datasource:\n\tid: %s\n\tname:%s\n\ttype:%s`",
+    "AzureRESTAuthenticationError": "Error login in to Azure. Please check the Service Configuration. Error: %s",
+    "CreatingBlueprint": "Creating Blueprint",
+    "PublishingBlueprint": "Publishing Blueprint"
+  }
+
+}
