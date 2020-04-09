@@ -28,8 +28,7 @@ stages:
   jobs:
   - job: BuildJob
     displayName: Build Extension
-    pool: 
-      vmImage: $(agentPool)
+    pool: JDA
     steps:
     - template: template-build.yaml
       parameters:
@@ -45,8 +44,7 @@ stages:
   jobs:
   - deployment: PublishExtDev
     displayName: Publish Extension
-    pool:
-      vmImage: $(agentPool)
+    pool: JDA
     environment: DEV
     strategy:
       runOnce:
@@ -79,8 +77,7 @@ stages:
   jobs:
   - deployment: PublishExtDev
     displayName: Publish Extension
-    pool:
-      vmImage: $(agentPool)
+    pool: JDA
     environment: PROD
     strategy:
       runOnce:
