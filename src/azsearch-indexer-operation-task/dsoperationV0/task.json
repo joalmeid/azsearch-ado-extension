@@ -33,6 +33,17 @@
       "helpMarkDown": "Select the Azure subscription where the Azure Search resource is provisioned."
     },
     {
+      "name": "ResourceGroupName",
+      "type": "pickList",
+      "label": "Resource group",
+      "defaultValue": "",
+      "required": true,
+      "properties": {
+          "EditableOptions": "True"
+      },
+      "helpMarkDown": "Enter or Select the Azure Resource Group that contains the Azure Cognitive Search specified above"
+    },
+    {
       "name": "AzureCognitiveSearch",
       "label": "Azure Cognitive Search resource",
       "type": "pickList",
@@ -44,15 +55,15 @@
       }
     },
     {
-      "name": "ResourceGroupName",
+      "name": "AzureCognitiveSearch2",
+      "label": "Azure Cognitive Search resource",
       "type": "pickList",
-      "label": "Resource group",
+      "helpMarkDown": "Select an Azure Cognitive Search in the selected Azure Subscription.",
       "defaultValue": "",
       "required": true,
       "properties": {
-          "EditableOptions": "True"
-      },
-      "helpMarkDown": "Enter or Select the Azure Resource Group that contains the Azure Cognitive Search specified above"
+        "EditableOptions": "True"
+      }
     },
     {
       "name": "IndexerOperation",
@@ -134,10 +145,20 @@
       "dataSourceName": "AzureResourceGroups"
     },
     {
-      "target": "CognitiveSearchName",
+      "target": "AzureCognitiveSearch",
       "endpointId": "$(ConnectedServiceName)",
       "endpointUrl": "{{endpoint.url}}subscriptions/{{endpoint.subscriptionId}}/resourceGroups/$(ResourceGroupName)/providers/Microsoft.Search/searchServices?api-version=2019-10-01-Preview",
       "resultSelector": "jsonpath:$.value[*].name"
+    },
+    {
+      "target": "AzureCognitiveSearch2",
+      "endpointId": "$(ConnectedServiceName)",
+			"dataSourceName": "AzureRMResourcesInRGBasedOnType",
+			"parameters": {
+				"ResourceGroupName": "$(ResourceGroupName)",
+				"ResourceType":"Microsoft.Search/searchServices"	
+			},
+			"resultTemplate": "{ \"Value\" : \"{{{name}}}\", \"DisplayValue\" : \"{{{name}}}\" }"
     }
   ],
   "outputVariables": [
