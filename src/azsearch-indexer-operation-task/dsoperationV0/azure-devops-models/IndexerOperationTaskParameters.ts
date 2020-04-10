@@ -9,19 +9,16 @@ export class IndexerOperationTaskParameters {
     public tenantId: string;
     public clientId?: string;
     public clientSecret?: string;
-
-    public serviceConnectionScope: string;
     public resourceGroupName: string;
 
     // azSearch Datasournce details
     public azsearchName: string;
-    public datasourceName: string;
-    public indexerName: string;
-    public indexName: string;
     public indexerOperation: string;
     public jsonPayloadLocation: string;
     public jsonPayloadPath?: string;
     public inlineJsonPayload?: string;
+    public datasourceName: string;
+    public indexerName: string;
 
     public async getDatasourceOperationTaskParameters() : Promise<IndexerOperationTaskParameters> {
       this.connectedServiceName = tl.getInput('ConnectedServiceName', true);
@@ -39,14 +36,14 @@ export class IndexerOperationTaskParameters {
         this.scheme = tl.getEndpointAuthorizationScheme(this.connectedServiceName, false);
       }
 
-      this.resourceGroupName = tl.getInput('resourceGroupName', false);
-      this.datasourceName = tl.getInput('DatasourceName', false);
-      this.indexerName = tl.getInput('IndexerName', false);
-      this.azsearchName = tl.getInput('AzureSearchName', true);
+      this.resourceGroupName = tl.getInput('ResourceGroupName', false);
+      this.azsearchName = tl.getInput('AzureCognitiveSearch', true);
+      this.indexerOperation = tl.getInput('IndexerOperation', false);
       this.jsonPayloadLocation = tl.getInput('JsonPayloadLocation', true);
       this.jsonPayloadPath = tl.getInput('JsonPayloadPath', false);
       this.inlineJsonPayload = tl.getInput('InlineJsonPayload', false);
-      this.indexerOperation = tl.getInput('IndexerOperation', false);
+      this.datasourceName = tl.getInput('DatasourceName', false);
+      this.indexerName = tl.getInput('IndexerName', false);
   
       //Print input variables values
       tl.debug(tl.loc("ParsedTaskInputsLabel"));
@@ -56,14 +53,16 @@ export class IndexerOperationTaskParameters {
       tl.debug(tl.loc("InputClientIdLabel", this.clientId));
       tl.debug(tl.loc("InputClientSecretLabel", this.clientSecret));
       tl.debug(tl.loc("InputSchemeLabel", this.scheme));
-      tl.debug(tl.loc("InputServiceConnectionScopeLabel", this.serviceConnectionScope));
+
+      tl.debug(tl.loc("InputResourceGroupNameLabel", this.resourceGroupName));
+      tl.debug(tl.loc("InputAzureCognitiveSearchLabel", this.azsearchName));
+      tl.debug(tl.loc("InputIndexerOperationLabel", this.indexerOperation));
+      tl.debug(tl.loc("InputJsonPayloadLocationLabel", this.jsonPayloadLocation));
+      tl.debug(tl.loc("InputJsonPayloadPathLabel", this.jsonPayloadPath));
+      tl.debug(tl.loc("InputInlineJsonPayloadLabel", this.inlineJsonPayload));
       tl.debug(tl.loc("InputDatasourceNameLabel", this.datasourceName));
       tl.debug(tl.loc("InputIndexerNameLabel", this.indexerName));
-      tl.debug(tl.loc("InputJsonPayloadLocationLabel", this.datasourceName));
-      tl.debug(tl.loc("InputJsonPayloadPathLabel", this.datasourceName));
-      tl.debug(tl.loc("InputInlineJsonPayloadLabel", this.datasourceName));
-      tl.debug(tl.loc("InputIndexerOperationLabel", this.datasourceName));
-      
+
       return this;
     }
 }

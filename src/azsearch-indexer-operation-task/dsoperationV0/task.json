@@ -62,17 +62,6 @@
       }
     },
     {
-      "name": "AzureCognitiveSearch2",
-      "label": "Azure Cognitive Search resource2",
-      "type": "pickList",
-      "helpMarkDown": "Select an Azure Cognitive Search in the selected Azure Subscription.",
-      "defaultValue": "",
-      "required": true,
-      "properties": {
-        "EditableOptions": "True"
-      }
-    },
-    {
       "name": "IndexerOperation",
       "label": "Operation",
       "helpMarkDown": "Indexer Operation to execute",
@@ -89,7 +78,7 @@
         "ResetIndexer": "Reset Indexer",
         "GetIndexerStatus": "Get Indexer Status"
       },
-      "defaultValue": "createUpdateDataSource",
+      "defaultValue": "CreateUpdateDataSource",
       "groupName": "indexerOperationParameters"
     },
     {
@@ -183,10 +172,14 @@
     "InputClientIdLabel": "ClientId: %s",
     "InputClientSecretLabel": "ClientSecret: %s",
     "InputSchemeLabel": "Scheme: %s",
-    "InputServiceConnectionScopeLabel": "ServiceConnectionScope: %s",
+    "InputResourceGroupNameLabel": "ResourceGroupName: %s",
+    "InputAzureCognitiveSearchLabel": "AzureCognitiveSearch: %s",
+    "InputIndexerOperationLabel": "IndexerOperation: %s",
+    "InputJsonPayloadLocationLabel": "JsonPayloadLocation: %s",
+    "InputJsonPayloadPathLabel": "JsonPayloadPath: %s",
+    "InputInlineJsonPayloadLabel": "InlineJsonPayload: %s",
     "InputDatasourceNameLabel": "DatasourceName: %s",
     "InputIndexerNameLabel": "IndexerName: %s",
-    "InputIndexNameLabel": "IndexName: %s",
     
     "AzureRESTRequestError": "Error calling Azure REST API. Error: %s",
     "AzureResourceNotFound": "The subscription '%s', resource group '%s', or Search service '%s' could not be found.",
@@ -202,8 +195,6 @@
     "AzureSearchIndexerReset": "Azure Search Indexer '%s' reset successfully.",
     "AzureSearchIndexerRun": "Azure Search Indexer '%s' runned on-demand.",
     "AzureSearchIndexerStatus": "Collected status from Azure Search Indexer '%s'.",
-    
-    
 
     "AzureSearchDatasourceNotFound": "Azure Search Datasource not found.",
     "AzureSearchDatasourceFound": "Found Azure Search Datasource:\n\tid: %s\n\tname:%s\n\ttype:%s`",
