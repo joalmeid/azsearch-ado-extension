@@ -180,7 +180,7 @@
     "InputInlineJsonPayloadLabel": "InlineJsonPayload: %s",
     "InputDatasourceNameLabel": "DatasourceName: %s",
     "InputIndexerNameLabel": "IndexerName: %s",
-    
+
     "AzureRESTRequestError": "Error calling Azure REST API. Error: %s",
     "AzureResourceNotFound": "The subscription '%s', resource group '%s', or Search service '%s' could not be found.",
     "AzureSearchBadRequest": "Azure Search REST API error: %s.",
@@ -198,8 +198,8 @@
 
     "AzureSearchDatasourceNotFound": "Azure Search Datasource not found.",
     "AzureSearchDatasourceFound": "Found Azure Search Datasource:\n\tid: %s\n\tname:%s\n\ttype:%s`",
+    "AzureSearchAdminKeyResult": "The collected 'adminkey' for the Azure Cognitive Search was: %s",
     "AzureRESTAuthenticationError": "Error login in to Azure. Please check the Service Configuration. Error: %s",
-    "IndexerOptionOutput": "The Indexer Operation output was: %s"
   }
 
 }
