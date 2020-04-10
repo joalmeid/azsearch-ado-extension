@@ -4,7 +4,7 @@
   "name": "Azure Search Extension for Azure Pipelines",
   "version": "0.0.1",
   "scopes": [],
-  "description": "Azure DevOps Extension for Azure Search CI/CD related tasks.",
+  "description": "Azure Cognitive Search Extension for your CI/CD related pipelnes on Azure Devops.",
   "publisher": "joalmeid",
   "galleryFlags": [
     "Preview"
