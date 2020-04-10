@@ -57,10 +57,10 @@ export class azIndexerController {
               tl.debug(tl.loc("AzureRESTRequestError", err.message));
               reject(tl.loc("AzureRESTRequestError", err.message));
             } else if (response.statusCode==204) {
-              tl.debug(tl.loc("AzureSearchDatasourceUpdated", this.indexerOptions.azsearchName));
+              console.log(tl.loc("AzureSearchDatasourceUpdated", this.indexerOptions.azsearchName));
               resolve (createdDs);
             } else if (response.statusCode==201) {
-              tl.debug(tl.loc("AzureSearchDatasourceCreated", this.indexerOptions.azsearchName));
+              console.log(tl.loc("AzureSearchDatasourceCreated", this.indexerOptions.azsearchName));
               resolve (createdDs);
             } else {
               tl.debug(tl.loc("AzureSearchBadRequest", result.error.message));
@@ -91,7 +91,7 @@ export class azIndexerController {
             tl.debug(tl.loc("AzureRESTRequestError", err.message));
             reject(tl.loc("AzureRESTRequestError", err.message));
           } else {
-            tl.debug(tl.loc("AzureSearchDatasourcesFound", dsList.length));
+            console.log(tl.loc("AzureSearchDatasourcesFound", dsList.length));
             resolve (dsList);
           }
         });
@@ -118,7 +118,7 @@ export class azIndexerController {
             tl.debug(tl.loc("AzureSearchBadRequest", result.error.message));
             reject(tl.loc("AzureSearchBadRequest", result.error.message));
           } else {
-            tl.debug(tl.loc("AzureSearchDatasourceDeleted"));
+            console.log(tl.loc("AzureSearchDatasourceDeleted"));
             resolve (true);
           }
         });
@@ -149,10 +149,10 @@ export class azIndexerController {
             tl.debug(tl.loc("AzureRESTRequestError", err.message));
             reject(tl.loc("AzureRESTRequestError", err.message));
           } else if (response.statusCode==204) {
-            tl.debug(tl.loc("AzureSearchIndexerUpdated", this.indexerOptions.indexerName));
+            console.log(tl.loc("AzureSearchIndexerUpdated", this.indexerOptions.indexerName));
             resolve (createdIndexer);
           } else if (response.statusCode==201) {
-            tl.debug(tl.loc("AzureSearchIndexerCreated", this.indexerOptions.indexerName));
+            console.log(tl.loc("AzureSearchIndexerCreated", this.indexerOptions.indexerName));
             resolve (createdIndexer);
           } else {
             tl.debug(tl.loc("AzureSearchBadRequest", result.error.message));
@@ -183,7 +183,7 @@ export class azIndexerController {
             tl.debug(tl.loc("AzureRESTRequestError", err.message));
             reject(tl.loc("AzureRESTRequestError", err.message));
           } else {
-            tl.debug(tl.loc("AzureSearchIndexersFound", indexersList.length));
+            console.log(tl.loc("AzureSearchIndexersFound", indexersList.length));
             resolve (indexersList);
           }
         });
@@ -211,7 +211,8 @@ export class azIndexerController {
             reject(tl.loc("AzureSearchBadRequest", result.error.message));
           } else {
             let statusResult: IndexerStatus = result as IndexerStatus;
-            tl.debug(tl.loc("AzureSearchIndexerStatus"));
+            //TOREVIEW
+            console.log(tl.loc("AzureSearchIndexerStatus"));
             resolve (statusResult);
           }
         });
@@ -238,7 +239,7 @@ export class azIndexerController {
             tl.debug(tl.loc("AzureSearchBadRequest", result.error.message));
             reject(tl.loc("AzureSearchBadRequest", result.error.message));
           } else {
-            tl.debug(tl.loc("AzureSearchIndexerReset"));
+            console.log(tl.loc("AzureSearchIndexerReset"), this.indexerOptions.indexerName);
             resolve (true);
           }
         });
@@ -265,7 +266,7 @@ export class azIndexerController {
             tl.debug(tl.loc("AzureSearchBadRequest", result.error.message));
             reject(tl.loc("AzureSearchBadRequest", result.error.message));
           } else {
-            tl.debug(tl.loc("AzureSearchIndexerRun"));
+            console.log(tl.loc("AzureSearchIndexerRun"), this.indexerOptions.indexerName);
             resolve (true);
           }
         });
@@ -292,7 +293,7 @@ export class azIndexerController {
             tl.debug(tl.loc("AzureSearchBadRequest", result.error.message));
             reject(tl.loc("AzureSearchBadRequest", result.error.message));
           } else {
-            tl.debug(tl.loc("AzureSearchIndexerDeleted"));
+            console.log(tl.loc("AzureSearchIndexerDeleted"), this.indexerOptions.indexerName);
             resolve (true);
           }
         });
@@ -347,7 +348,7 @@ export class azIndexerController {
               tl.debug(tl.loc("AzureRESTRequestError", response.statusMessage));
               reject(tl.loc("AzureRESTRequestError", response.statusMessage));
             } else {
-              tl.debug(tl.loc("AzureSearchAdminKeyResult", result.primaryKey));
+              tl.debug(tl.loc("AzureSearchAdminKeyResult"));
               resolve (result.primaryKey);
             }
         });

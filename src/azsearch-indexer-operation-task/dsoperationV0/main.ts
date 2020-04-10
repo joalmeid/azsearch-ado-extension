@@ -22,6 +22,7 @@ async function run(): Promise<void> {
     await dsController.setupAzure();
 
     // Indexer Operation Task
+    console.log(tl.loc("IndexerOperationLabel", taskParameters.indexerOperation));
     switch (taskParameters.indexerOperation){
       case 'CreateUpdateDataSource': 
         operationOutput = await dsController.createUpdateDataSource();
@@ -54,9 +55,9 @@ async function run(): Promise<void> {
 
     // Set output variable
     let operationOutputString: string = operationOutput ? JSON.stringify(operationOutput) : 'No Output';
-    tl.debug(tl.loc('IndexerOptionOutput', operationOutputString));
+    console.log(tl.loc('IndexerOptionOutput', operationOutputString));
     tl.setVariable('IndexerOptionOutput', operationOutputString);
-	
+    
     tl.setResult(tl.TaskResult.Succeeded, "");
   }
   catch(error) {
