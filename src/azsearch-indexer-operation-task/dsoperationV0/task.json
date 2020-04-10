@@ -89,7 +89,8 @@
         "ResetIndexer": "Reset Indexer",
         "GetIndexerStatus": "Get Indexer Status"
       },
-      "defaultValue": "createUpdateDataSource"
+      "defaultValue": "createUpdateDataSource",
+      "groupName": "indexerOperationParameters"
     },
     {
       "name": "JsonPayloadLocation",
