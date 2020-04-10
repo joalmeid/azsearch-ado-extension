@@ -53,7 +53,7 @@ async function run(): Promise<void> {
     } 
 
     // Set output variable
-    let operationOutputString: string = JSON.stringify(operationOutput);
+    let operationOutputString: string = operationOutput ? JSON.stringify(operationOutput) : 'No Output';
     tl.debug(tl.loc('IndexerOptionOutput', operationOutputString));
     tl.setVariable('IndexerOptionOutput', operationOutputString);
 	
