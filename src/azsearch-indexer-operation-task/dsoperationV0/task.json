@@ -20,6 +20,13 @@
   ],
   "minimumAgentVersion": "2.160.0",
   "instanceNameFormat": "Indexer Operation: $(IndexerOperation)",
+  "groups": [
+    {
+        "name": "indexerOperationParameters",
+        "displayName": "Operation parameters",
+        "isExpanded": true
+    }
+  ],
   "inputs": [
     {
       "name": "ConnectedServiceName",
@@ -56,7 +63,7 @@
     },
     {
       "name": "AzureCognitiveSearch2",
-      "label": "Azure Cognitive Search resource",
+      "label": "Azure Cognitive Search resource2",
       "type": "pickList",
       "helpMarkDown": "Select an Azure Cognitive Search in the selected Azure Subscription.",
       "defaultValue": "",
@@ -72,15 +79,15 @@
       "type": "pickList",
       "required": true,
       "options": {
-        "createUpdateDataSource": "Create/Update DataSource",
-        "deleteDataSource": "Delete Datasource",
-        "listDataSources": "List Datasource",
-        "createUpdateIndexer": "Create/Update Indexer",
-        "deleteIndexer": "Delete Indexer",
-        "listIndexers": "List Indexers",
-        "runIndexer": "Run Indexer",
-        "resetIndexer": "Reset Indexer",
-        "getIndexerStatus": "Get Indexer Status"
+        "CreateUpdateDataSource": "Create/Update DataSource",
+        "DeleteDataSource": "Delete Datasource",
+        "ListDataSources": "List Datasource",
+        "CreateUpdateIndexer": "Create/Update Indexer",
+        "DeleteIndexer": "Delete Indexer",
+        "ListIndexers": "List Indexers",
+        "RunIndexer": "Run Indexer",
+        "ResetIndexer": "Reset Indexer",
+        "GetIndexerStatus": "Get Indexer Status"
       },
       "defaultValue": "createUpdateDataSource"
     },
@@ -88,14 +95,15 @@
       "name": "JsonPayloadLocation",
       "type": "pickList",
       "label": "Json Location",
-      "defaultValue": "scriptPath",
+      "defaultValue": "filePath",
       "required": true,
       "helpMarkDown": "Type of Json Payload: File path or Inline Json",
       "options": {
           "inlineJson": "Inline Json",
           "filePath": "File path"
-      }
-    },
+        },
+      "groupName": "indexerOperationParameters"
+      },
     {
       "name": "JsonPayloadPath",
       "type": "filePath",
@@ -103,7 +111,8 @@
       "defaultValue": "",
       "required": true,
       "visibleRule": "JsonPayloadLocation = filePath",
-      "helpMarkDown": "Fully qualified path of the Json payload file or a path relative to the the default working directory"
+      "helpMarkDown": "Fully qualified path of the Json payload file or a path relative to the the default working directory",
+      "groupName": "indexerOperationParameters"
     },
     {
       "name": "InlineJsonPayload",
@@ -117,7 +126,8 @@
           "resizable": "true",
           "rows": "10",
           "maxLength": "5000"
-      }
+      },
+      "groupName": "indexerOperationParameters"
     },
     {
       "name": "DatasourceName",
@@ -126,7 +136,8 @@
       "defaultValue": "",
       "required": true,
       "visibleRule": "IndexerOperation = createUpdateDataSource || IndexerOperation = deleteDataSource",
-      "helpMarkDown": "Datasource name."
+      "helpMarkDown": "Datasource name.",
+      "groupName": "indexerOperationParameters"
     },
     {
       "name": "IndexerName",
@@ -135,7 +146,8 @@
       "defaultValue": "",
       "required": true,
       "visibleRule": "IndexerOperation = createUpdateIndexer || IndexerOperation = deleteIndexer || IndexerOperation = getIndexerStatus || IndexerOperation = resetIndexer",
-      "helpMarkDown": "Indexer name."
+      "helpMarkDown": "Indexer name.",
+      "groupName": "indexerOperationParameters"
     }
   ],
   "dataSourceBindings": [
@@ -149,16 +161,6 @@
       "endpointId": "$(ConnectedServiceName)",
       "endpointUrl": "{{endpoint.url}}subscriptions/{{endpoint.subscriptionId}}/resourceGroups/$(ResourceGroupName)/providers/Microsoft.Search/searchServices?api-version=2019-10-01-Preview",
       "resultSelector": "jsonpath:$.value[*].name"
-    },
-    {
-      "target": "AzureCognitiveSearch2",
-      "endpointId": "$(ConnectedServiceName)",
-			"dataSourceName": "AzureRMResourcesInRGBasedOnType",
-			"parameters": {
-				"ResourceGroupName": "$(ResourceGroupName)",
-				"ResourceType":"Microsoft.Search/searchServices"	
-			},
-			"resultTemplate": "{ \"Value\" : \"{{{name}}}\", \"DisplayValue\" : \"{{{name}}}\" }"
     }
   ],
   "outputVariables": [

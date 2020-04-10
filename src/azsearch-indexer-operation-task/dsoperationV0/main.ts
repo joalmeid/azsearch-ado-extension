@@ -22,41 +22,31 @@ async function run(): Promise<void> {
 
     // Indexer Operation Task
     switch (taskParameters.indexerOperation){
-      case 'createUpdateDataSource': 
-        console.log('createUpdateDataSource');
+      case 'CreateUpdateDataSource': 
         await dsController.createUpdateDataSource();
         break;
-      case 'deleteDataSource': 
-        console.log('deleteDataSource');
+      case 'DeleteDataSource': 
         await dsController.deleteDataSource();
         break;
-      case 'listDataSources': 
-        console.log('listDataSources');
+      case 'ListDataSources': 
         await dsController.listDataSources();
-        throw new Error('listDataSources not implemented.');
         break;
-      case 'createUpdateIndexer': 
-        console.log('createUpdateIndexer');
+      case 'CreateUpdateIndexer': 
         await dsController.createUpdateIndexer();
         break;
-      case 'listIndexers': 
-        console.log('listIndexers');
+      case 'ListIndexers': 
         await dsController.listIndexers();
         break;
-      case 'getIndexerStatus': 
-        console.log('getIndexerStatus');
+      case 'GetIndexerStatus': 
         await dsController.getIndexerStatus();
         break;
-      case 'resetIndexer': 
-        console.log('resetIndexer');
+      case 'ResetIndexer': 
         await dsController.resetIndexer();
         break;
-      case 'runIndexer': 
-        console.log('runIndexer');
+      case 'RunIndexer': 
         await dsController.runIndexer();
         break;
-      case 'deleteIndexer': 
-        console.log('deleteIndexer');
+      case 'DeleteIndexer':
         await dsController.deleteIndexer();
         break;
     } 
