@@ -8,53 +8,58 @@ import { azIndexerController } from './operations'
 async function run(): Promise<void> {
 
   try {
-    var taskManifestPath = path.join(__dirname, "task.json");
+    let taskManifestPath = path.join(__dirname, "task.json");
     tl.debug(`Setting resource path to ${taskManifestPath}`);
     tl.setResourcePath(taskManifestPath);
 
-    var dsParameters = new IndexerOperationTaskParameters();
-    var taskParameters = await dsParameters.getDatasourceOperationTaskParameters();
+    let dsParameters = new IndexerOperationTaskParameters();
+    let taskParameters = await dsParameters.getDatasourceOperationTaskParameters();
 
-    var dsController = new azIndexerController(taskParameters);
-    
+    let dsController = new azIndexerController(taskParameters);
+    let operationOutput: any;
+
     // Authenticate on Azure REST Api
     await dsController.setupAzure();
 
     // Indexer Operation Task
     switch (taskParameters.indexerOperation){
       case 'CreateUpdateDataSource': 
-        await dsController.createUpdateDataSource();
+        operationOutput = await dsController.createUpdateDataSource();
         break;
       case 'DeleteDataSource': 
-        await dsController.deleteDataSource();
+        operationOutput = await dsController.deleteDataSource();
         break;
       case 'ListDataSources': 
-        await dsController.listDataSources();
+        operationOutput = await dsController.listDataSources();
         break;
       case 'CreateUpdateIndexer': 
-        await dsController.createUpdateIndexer();
+        operationOutput = await dsController.createUpdateIndexer();
         break;
       case 'ListIndexers': 
-        await dsController.listIndexers();
+        operationOutput = await dsController.listIndexers();
         break;
       case 'GetIndexerStatus': 
-        await dsController.getIndexerStatus();
+        operationOutput = await dsController.getIndexerStatus();
         break;
       case 'ResetIndexer': 
-        await dsController.resetIndexer();
+        operationOutput = await dsController.resetIndexer();
         break;
       case 'RunIndexer': 
-        await dsController.runIndexer();
+        operationOutput = await dsController.runIndexer();
         break;
       case 'DeleteIndexer':
-        await dsController.deleteIndexer();
+        operationOutput = await dsController.deleteIndexer();
         break;
     } 
 
+    // Set output variable
+    let operationOutputString: string = JSON.stringify(operationOutput);
+    tl.debug(tl.loc('IndexerOptionOutput', operationOutputString));
+    tl.setVariable('IndexerOptionOutput', operationOutputString);
+	
     tl.setResult(tl.TaskResult.Succeeded, "");
   }
   catch(error) {
-    console.log(`FINAL ERROR: ${error}`);
     tl.setResult(tl.TaskResult.Failed, error);
   }
 }

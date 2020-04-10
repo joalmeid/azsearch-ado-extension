@@ -199,8 +199,7 @@
     "AzureSearchDatasourceNotFound": "Azure Search Datasource not found.",
     "AzureSearchDatasourceFound": "Found Azure Search Datasource:\n\tid: %s\n\tname:%s\n\ttype:%s`",
     "AzureRESTAuthenticationError": "Error login in to Azure. Please check the Service Configuration. Error: %s",
-    "CreatingBlueprint": "Creating Blueprint",
-    "PublishingBlueprint": "Publishing Blueprint"
+    "IndexerOptionOutput": "The Indexer Operation output was: %s"
   }
 
 }
