@@ -1,8 +1,8 @@
 {
   "id": "a7773296-2290-4fd7-9de1-c8da4e853d4d",
-  "name": "IndexerOperation",
-  "friendlyName": "azsearch-indexeroperation-task",
-  "description": "Azure Cognitive Search Data Source Operation",
+  "name": "AzureSearchIndexerOperation",
+  "friendlyName": "Azure Cognitive Search Indexer Operation",
+  "description": "Execute an Azure Cognitive Search Indexer operation",
   "helpUrl": "https://github.com/joalmeid/azsearch-ado-extension/wiki",
   "helpMarkDown": "[Learn more about this task](http://aka.ms/azsearch-devops/wiki)",
   "category": "Utility",
@@ -19,7 +19,7 @@
     "Release"
   ],
   "minimumAgentVersion": "2.160.0",
-  "instanceNameFormat": "Data Source Operation: $(avPipeline)",
+  "instanceNameFormat": "Indexer Operation: $(IndexerOperation)",
   "inputs": [
     {
       "name": "ConnectedServiceName",
@@ -33,14 +33,6 @@
       "helpMarkDown": "Select the Azure subscription where the Azure Search resource is provisioned."
     },
     {
-      "name": "ResourceGroupName",
-      "type": "string",
-      "label": "Resource Group Name",
-      "defaultValue": "",
-      "required": true,
-      "helpMarkDown": "Resource Group name."
-    },
-    {
       "name": "AzureCognitiveSearch",
       "label": "Azure Cognitive Search resource",
       "type": "pickList",
@@ -52,12 +44,15 @@
       }
     },
     {
-      "name": "AzureSearchName",
-      "type": "string",
-      "label": "Azure Search Name",
+      "name": "ResourceGroupName",
+      "type": "pickList",
+      "label": "Resource group",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Azure Search name."
+      "properties": {
+          "EditableOptions": "True"
+      },
+      "helpMarkDown": "Enter or Select the Azure Resource Group that contains the Azure Cognitive Search specified above"
     },
     {
       "name": "IndexerOperation",
@@ -73,7 +68,7 @@
         "deleteIndexer": "Delete Indexer",
         "listIndexers": "List Indexers",
         "runIndexer": "Run Indexer",
-        "resetIndexer": "Run Indexer",
+        "resetIndexer": "Reset Indexer",
         "getIndexerStatus": "Get Indexer Status"
       },
       "defaultValue": "createUpdateDataSource"
@@ -118,7 +113,7 @@
       "type": "string",
       "label": "Datasource Name",
       "defaultValue": "",
-      "required": false,
+      "required": true,
       "visibleRule": "IndexerOperation = createUpdateDataSource || IndexerOperation = deleteDataSource",
       "helpMarkDown": "Datasource name."
     },
@@ -127,8 +122,8 @@
       "type": "string",
       "label": "Indexer Name",
       "defaultValue": "",
-      "required": false,
-      "visibleRule": "IndexerOperation = createUpdateIndexer || IndexerOperation = getIndexerStatus || IndexerOperation = resetIndexer",
+      "required": true,
+      "visibleRule": "IndexerOperation = createUpdateIndexer || IndexerOperation = deleteIndexer || IndexerOperation = getIndexerStatus || IndexerOperation = resetIndexer",
       "helpMarkDown": "Indexer name."
     }
   ],
@@ -139,17 +134,12 @@
       "dataSourceName": "AzureResourceGroups"
     },
     {
-      "target": "resourceName",
+      "target": "CognitiveSearchName",
       "endpointId": "$(ConnectedServiceName)",
-      "dataSourceName": "AzureRMResourcesInRGBasedOnType",
-      "parameters": {
-          "ResourceGroupName": "$(ResourceGroupName)",
-          "ResourceType": "Microsoft.Search/searchServices"
-      },
-      "resultTemplate": "{ \"Value\" : \"{{{name}}}\", \"DisplayValue\" : \"{{{name}}}\" }"
+      "endpointUrl": "{{endpoint.url}}subscriptions/{{endpoint.subscriptionId}}/resourceGroups/$(ResourceGroupName)/providers/Microsoft.Search/searchServices?api-version=2019-10-01-Preview",
+      "resultSelector": "jsonpath:$.value[*].name"
     }
   ],
-
   "outputVariables": [
     {
       "name": "IndexerOptionOutput",
