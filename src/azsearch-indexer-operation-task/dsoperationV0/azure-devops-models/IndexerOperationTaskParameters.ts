@@ -45,23 +45,23 @@ export class IndexerOperationTaskParameters {
       this.datasourceName = tl.getInput('DatasourceName', false);
       this.indexerName = tl.getInput('IndexerName', false);
   
-      //Print input variables values
-      tl.debug(tl.loc("ParsedTaskInputsLabel"));
-      tl.debug(tl.loc("InputsconnectedServiceNameLabel", this.connectedServiceName));
-      tl.debug(tl.loc("InputsSubscriptionIdLabel", this.subscriptionId));
-      tl.debug(tl.loc("InputTenantIdLabel", this.tenantId));
-      tl.debug(tl.loc("InputClientIdLabel", this.clientId));
-      tl.debug(tl.loc("InputClientSecretLabel", this.clientSecret));
-      tl.debug(tl.loc("InputSchemeLabel", this.scheme));
+      // //Print input variables values
+      // tl.debug(tl.loc("ParsedTaskInputsLabel"));
+      // tl.debug(tl.loc("InputsconnectedServiceNameLabel", this.connectedServiceName));
+      // tl.debug(tl.loc("InputsSubscriptionIdLabel", this.subscriptionId));
+      // tl.debug(tl.loc("InputTenantIdLabel", this.tenantId));
+      // tl.debug(tl.loc("InputClientIdLabel", this.clientId));
+      // tl.debug(tl.loc("InputClientSecretLabel", this.clientSecret));
+      // tl.debug(tl.loc("InputSchemeLabel", this.scheme));
 
-      tl.debug(tl.loc("InputResourceGroupNameLabel", this.resourceGroupName));
-      tl.debug(tl.loc("InputAzureCognitiveSearchLabel", this.azsearchName));
-      tl.debug(tl.loc("InputIndexerOperationLabel", this.indexerOperation));
-      tl.debug(tl.loc("InputJsonPayloadLocationLabel", this.jsonPayloadLocation));
-      tl.debug(tl.loc("InputJsonPayloadPathLabel", this.jsonPayloadPath));
-      tl.debug(tl.loc("InputInlineJsonPayloadLabel", this.inlineJsonPayload));
-      tl.debug(tl.loc("InputDatasourceNameLabel", this.datasourceName));
-      tl.debug(tl.loc("InputIndexerNameLabel", this.indexerName));
+      // tl.debug(tl.loc("InputResourceGroupNameLabel", this.resourceGroupName));
+      // tl.debug(tl.loc("InputAzureCognitiveSearchLabel", this.azsearchName));
+      // tl.debug(tl.loc("InputIndexerOperationLabel", this.indexerOperation));
+      // tl.debug(tl.loc("InputJsonPayloadLocationLabel", this.jsonPayloadLocation));
+      // tl.debug(tl.loc("InputJsonPayloadPathLabel", this.jsonPayloadPath));
+      // tl.debug(tl.loc("InputInlineJsonPayloadLabel", this.inlineJsonPayload));
+      // tl.debug(tl.loc("InputDatasourceNameLabel", this.datasourceName));
+      // tl.debug(tl.loc("InputIndexerNameLabel", this.indexerName));
 
       return this;
     }

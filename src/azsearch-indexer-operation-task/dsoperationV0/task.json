@@ -199,7 +199,8 @@
     "AzureSearchDatasourceNotFound": "Azure Search Datasource not found.",
     "AzureSearchDatasourceFound": "Found Azure Search Datasource:\n\tid: %s\n\tname:%s\n\ttype:%s`",
     "AzureSearchAdminKeyResult": "The collected 'adminkey' for the Azure Cognitive Search was: %s",
-    "AzureRESTAuthenticationError": "Error login in to Azure. Please check the Service Configuration. Error: %s"
+    "AzureRESTAuthenticationError": "Error login in to Azure. Please check the Service Configuration. Error: %s",
+    "IndexerOptionOutput": "Indexer operation output: '%s'."
   }
 
 }
