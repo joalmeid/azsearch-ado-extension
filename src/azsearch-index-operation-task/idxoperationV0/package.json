@@ -1,5 +1,5 @@
 {
-  "name": "azsearch-indexeroperation-task",
+  "name": "azsearch-indexoperation-task",
   "main": "main.js",
   "dependencies": {
     "azure-devops-node-api": "^7.0.0",
