@@ -1,1 +1,1 @@
-export * from './AzIndexerController';
+export * from './AzIndexController';

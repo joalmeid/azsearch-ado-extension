@@ -183,7 +183,7 @@ export interface Field {
  * Statistics for a given index. Statistics are collected periodically and are not guaranteed to
  * always be up-to-date.
  */
-export class IndexStatisticsResult {
+export class IndexStatistics {
 
   private _documentCount?: number; /* The number of documents in the index. */
   private _storageSize:number; /* The amount of storage in bytes consumed by the index. */

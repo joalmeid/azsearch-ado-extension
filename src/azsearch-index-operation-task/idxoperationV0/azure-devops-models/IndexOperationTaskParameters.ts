@@ -11,14 +11,13 @@ export class IndexOperationTaskParameters {
     public clientSecret?: string;
     public resourceGroupName: string;
 
-    // azSearch Datasournce details
+    // azSearch details
     public azsearchName: string;
-    public indexerOperation: string;
+    public indexOperation: string;
     public jsonPayloadLocation: string;
     public jsonPayloadPath?: string;
     public inlineJsonPayload?: string;
-    public datasourceName: string;
-    public indexerName: string;
+    public indexName: string;
 
     public async getDatasourceOperationTaskParameters() : Promise<IndexOperationTaskParameters> {
       this.connectedServiceName = tl.getInput('ConnectedServiceName', true);
@@ -38,12 +37,11 @@ export class IndexOperationTaskParameters {
 
       this.resourceGroupName = tl.getInput('ResourceGroupName', false);
       this.azsearchName = tl.getInput('AzureCognitiveSearch', true);
-      this.indexerOperation = tl.getInput('IndexerOperation', false);
+      this.indexOperation = tl.getInput('IndexOperation', false);
       this.jsonPayloadLocation = tl.getInput('JsonPayloadLocation', true);
       this.jsonPayloadPath = tl.getInput('JsonPayloadPath', false);
       this.inlineJsonPayload = tl.getInput('InlineJsonPayload', false);
-      this.datasourceName = tl.getInput('DatasourceName', false);
-      this.indexerName = tl.getInput('IndexerName', false);
+      this.indexName = tl.getInput('IndexName', false);
   
       // //Print input variables values
       // tl.debug(tl.loc("ParsedTaskInputsLabel"));
@@ -60,8 +58,7 @@ export class IndexOperationTaskParameters {
       // tl.debug(tl.loc("InputJsonPayloadLocationLabel", this.jsonPayloadLocation));
       // tl.debug(tl.loc("InputJsonPayloadPathLabel", this.jsonPayloadPath));
       // tl.debug(tl.loc("InputInlineJsonPayloadLabel", this.inlineJsonPayload));
-      // tl.debug(tl.loc("InputDatasourceNameLabel", this.datasourceName));
-      // tl.debug(tl.loc("InputIndexerNameLabel", this.indexerName));
+      // tl.debug(tl.loc("InputIndexNameLabel", this.indexerName));
 
       return this;
     }

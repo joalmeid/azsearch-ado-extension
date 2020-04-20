@@ -1,11 +1,10 @@
 import { AzureServiceClient } from 'ms-rest-azure';
 
-export interface IndexerOptions {
+export interface IndexOptions {
   subscriptionId: string,
   resourceGroup: string,
   azsearchName: string,
-  datasourceName: string,
-  indexerName: string,
+  indexName: string,
   payload: string,
   payloadPath:string
 }
