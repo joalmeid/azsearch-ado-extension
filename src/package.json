@@ -9,9 +9,9 @@
   },
   "scripts": {
     "clean": "rimraf ./*.vsix",
-    "prebuild": "cd azsearch-indexer-operation-task/dsoperationV0 && npm install --save-dev",
+    "prebuild": "cd azsearch-indexer-operation-task/idxroperationV0 && npm install --save-dev",
     "build": "tsc --listEmittedFiles -p . ",
-    "test": "cd azsearch-indexer-operation-task/dsoperationV0 && mocha tests/_suite.js",
+    "test": "cd azsearch-indexer-operation-task/idxroperationV0 && mocha tests/_suite.js",
     "compile": "npm run clean && npm run build",
     "package": "npm run build && tfx extension create --rev-version --manifest-globs"
   },
