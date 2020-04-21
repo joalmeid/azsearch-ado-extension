@@ -23,6 +23,15 @@ export interface IndexerOptions {
   indexerName: string,
 }
 
+export interface DocumentOptions {
+  subscriptionId: string,
+  resourceGroup: string,
+  azsearchName: string,
+  payload: string,
+  payloadPath:string
+  indexName: string,
+}
+
 export class AdminKeyResult {
   public primaryKey: string;
   public secondaryKey: string;

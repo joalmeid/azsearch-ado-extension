@@ -1,0 +1,17 @@
+{
+  "name": "azsearch-indexeroperation-task",
+  "main": "main.js",
+  "dependencies": {
+    "azure-devops-node-api": "^7.0.0",
+    "azure-pipelines-task-lib": "2.8.0",
+    "ms-rest-azure": "^3.0.0",
+    "moment": "2.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^11.14.0",
+    "@types/mocha": "^5.2.6",
+    "@types/q": "^1.5.0",
+    "typescript": "^3.8.3",
+    "mocha": "^5.2.0"
+  }
+}
