@@ -199,3 +199,34 @@ export class IndexStatistics {
     return this._storageSize;
   }
 }
+
+export interface TextAnalyzeResult {
+  tokens: Token[];
+}
+
+export class Token {
+
+  private _token: string; /* token */
+  private _startOffset:number; /* index of the first character of the token. */
+  private _endOffset:number; /* index of the last character of the token. */
+  private _position:number; /* position of the token in the input text. */
+
+  constructor(name: string) {
+  }
+  
+  get token(): string {
+    return this._token;
+  }
+
+  get startOffset(): number {
+    return this._startOffset;
+  }
+
+  get endOffset(): number {
+    return this._endOffset;
+  }
+
+  get position(): number {
+    return this._position;
+  }
+}

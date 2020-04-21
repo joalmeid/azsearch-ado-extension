@@ -7,11 +7,7 @@ import * as msRestAzure from 'ms-rest-azure';
 import { AzureServiceClient } from 'ms-rest-azure';
 import { IncomingMessage, UrlBasedRequestPrepareOptions } from 'ms-rest';
 import { IndexerOperationTaskParameters } from '../azure-devops-models'
-import { AzureSearchClient, AdminKeyResult, IndexerOptions, DataSource, Indexer, IndexerStatus } from '../azsearch-models'
-
-const AZSEARCH_DATAAPI_VERSION: string = '2019-05-06'
-const AZSEARCH_MGMTAPI_VERSION: string = '2019-10-01-Preview'
-
+import { AZSEARCH_DATAAPI_VERSION, AZSEARCH_MGMTAPI_VERSION, AzureSearchClient, AdminKeyResult, IndexerOptions, DataSource, Indexer, IndexerStatus } from '../../../common'
 
 export class azIndexerController {
 

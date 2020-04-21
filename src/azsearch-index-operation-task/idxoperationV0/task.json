@@ -125,6 +125,16 @@
       "visibleRule": "IndexOperation != ListIndexes",
       "helpMarkDown": "Index name",
       "groupName": "indexOperationParameters"
+    },
+    {
+      "name": "AllowIndexDowntime",
+      "type": "Bool",
+      "label": "Allow Index Downtime",
+      "defaultValue": false,
+      "required": true,
+      "visibleRule": "IndexOperation == CreateUpdateIndex",
+      "helpMarkDown": "Index name",
+      "groupName": "indexOperationParameters"
     }
   ],
   "dataSourceBindings": [
@@ -166,7 +176,8 @@
     "InputJsonPayloadPathLabel": "JsonPayloadPath: %s",
     "InputInlineJsonPayloadLabel": "InlineJsonPayload: %s",
     "InputIndexNameLabel": "IndexName: %s",
-
+    "AllowIndexDowntimeLabel": "AllowIndexDowntime: %s",
+    
     "opIndexSourceLabel": "Executing operation '%s'...",
     
     "AzureRESTRequestError": "Error calling Azure REST API. Error: %s",
@@ -174,13 +185,13 @@
     "AzureSearchBadRequest": "Azure Search REST API error: %s.",
     "AzureSearchIndexUpdated": "Azure Search Index '%s' updated.",
     "AzureSearchIndexCreated": "Azure Search Index '%s' created.",
+    "AzureSearchIndexFound": "Azure Search Index found: \n\tname:%s\n\tfields #:%s",
     "AzureSearchIndexesFound": "Azure Search Indexes found: total of %s.",
     "AzureSearchIndexDeleted": "Azure Search Index '%s' deleted.",
     "AzureSearchIndexStats": "Azure Search Index '%s' statistics collected successfully.",
     "AzureSearchAnalyzeText": "Azure Search Text analyzed '%s'.",
 
     "AzureSearchIndexNotFound": "Azure Search Index not found.",
-    "AzureSearchIndexFound": "Found Azure Search Index:\n\tid: %s\n\tname:%s\n\ttype:%s",
     "AzureSearchAdminKeyResult": "The Azure Cognitive Search 'adminkey' was successfully collected.",
     "AzureRESTAuthenticationError": "Error login in to Azure. Please check the Service Configuration. Error: %s",
     "IndexOptionOutput": "Index operation output: '%s'."

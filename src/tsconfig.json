@@ -9,7 +9,7 @@
     "strictNullChecks": false
   },
   "include": [
-    "azsearch-indexer-operation-task/idxroperationV0/*",
-    "azsearch-index-operation-task/idxoperationV0/*"
-  ],
+    "common/*",
+    "azsearch*task/**/*"
+  ]
 }

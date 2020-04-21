@@ -7,11 +7,7 @@ import * as msRestAzure from 'ms-rest-azure';
 import { AzureServiceClient } from 'ms-rest-azure';
 import { IncomingMessage, UrlBasedRequestPrepareOptions } from 'ms-rest';
 import { IndexOperationTaskParameters } from '../azure-devops-models'
-import { AzureSearchClient, AdminKeyResult, IndexOptions, Index, IndexStatistics} from '../azsearch-models'
-
-const AZSEARCH_DATAAPI_VERSION: string = '2019-05-06'
-const AZSEARCH_MGMTAPI_VERSION: string = '2019-10-01-Preview'
-
+import { AZSEARCH_DATAAPI_VERSION, AZSEARCH_MGMTAPI_VERSION, AzureSearchClient, AdminKeyResult, IndexOptions, Index, IndexStatistics, TextAnalyzeResult } from '../../../common'
 
 export class azIndexerController {
 
@@ -28,6 +24,7 @@ export class azIndexerController {
       azsearchName: this.taskParameters.azsearchName,
       resourceGroup: this.taskParameters.resourceGroupName,
       indexName: this.taskParameters.indexName,
+      allowIndexDowntime: this.taskParameters.allowIndexDowntime,
       payloadPath: this.taskParameters.jsonPayloadLocation == 'filePath' ? this.taskParameters.jsonPayloadPath : null,
       payload: this.taskParameters.inlineJsonPayload
     };
@@ -42,7 +39,7 @@ export class azIndexerController {
 
         let options: UrlBasedRequestPrepareOptions = {
           method: 'PUT',
-          url: `https://${this.indexOptions.azsearchName}.search.windows.net/datasources/${this.indexOptions.indexName}?api-version=${AZSEARCH_DATAAPI_VERSION}`,
+          url: `https://${this.indexOptions.azsearchName}.search.windows.net/indexes/${this.indexOptions.indexName}&allowIndexDowntime=${this.indexOptions.allowIndexDowntime}&api-version=${AZSEARCH_DATAAPI_VERSION}`,
           serializationMapper: null,
           deserializationMapper: null,
           headers: {'Content-Type': 'application/json', 'api-key': `${this.asClient.azureSearchAdminKey}`}, 
@@ -51,16 +48,16 @@ export class azIndexerController {
         };
 
         let request = await this.asClient.azureClient.sendRequest(options, (err, result: any, request, response) => {
-          let createdDs: Index = result;
+          let newIndex: Index = result;
             if (err) {
               tl.debug(tl.loc("AzureRESTRequestError", err.message));
               reject(tl.loc("AzureRESTRequestError", err.message));
-            } else if (response.statusCode==204) {
+            } else if (response.statusCode==204 || response.statusCode==200) {
               console.log(tl.loc("AzureSearchIndexUpdated", this.indexOptions.azsearchName));
-              resolve (createdDs);
+              resolve (newIndex);
             } else if (response.statusCode==201) {
               console.log(tl.loc("AzureSearchIndexCreated", this.indexOptions.azsearchName));
-              resolve (createdDs);
+              resolve (newIndex);
             } else {
               tl.debug(tl.loc("AzureSearchBadRequest", result.error.message));
               reject(tl.loc("AzureSearchBadRequest", result.error.message));
@@ -75,14 +72,14 @@ export class azIndexerController {
       try{
         let options: UrlBasedRequestPrepareOptions = {
           method: 'GET',
-          url: `https://${this.indexOptions.azsearchName}.search.windows.net/datasources?api-version=${AZSEARCH_DATAAPI_VERSION}&$select=name,description,type,credentials,container`,
+          url: `https://${this.indexOptions.azsearchName}.search.windows.net/indexes?api-version=${AZSEARCH_DATAAPI_VERSION}`,
           serializationMapper: null,
           deserializationMapper: null,
           headers: {'Content-Type': 'application/json', 'api-key': `${this.asClient.azureSearchAdminKey}`}
         };
 
         let request = await this.asClient.azureClient.sendRequest(options, (err, result: any, request, response) => {
-          let dsList: Index[] = result.value;
+          let indexList: Index[] = result.value;
           if (err) {
             tl.debug(tl.loc("AzureRESTRequestError", err.message));
             reject(tl.loc("AzureRESTRequestError", err.message));
@@ -90,8 +87,8 @@ export class azIndexerController {
             tl.debug(tl.loc("AzureRESTRequestError", err.message));
             reject(tl.loc("AzureRESTRequestError", err.message));
           } else {
-            console.log(tl.loc("AzureSearchIndexesFound", dsList.length));
-            resolve (dsList);
+            console.log(tl.loc("AzureSearchIndexesFound", indexList.length));
+            resolve (indexList);
           }
         });
       } catch(error) { reject(error); }
@@ -103,7 +100,7 @@ export class azIndexerController {
       try{
         let options: UrlBasedRequestPrepareOptions = {
           method: 'GET',
-          url: `https://${this.indexOptions.azsearchName}.search.windows.net/datasources?api-version=${AZSEARCH_DATAAPI_VERSION}&$select=name,description,type,credentials,container`,
+          url: `https://${this.indexOptions.azsearchName}.search.windows.net/indexes/${this.indexOptions.indexName}?api-version=${AZSEARCH_DATAAPI_VERSION}`,
           serializationMapper: null,
           deserializationMapper: null,
           headers: {'Content-Type': 'application/json', 'api-key': `${this.asClient.azureSearchAdminKey}`}
@@ -118,7 +115,7 @@ export class azIndexerController {
             tl.debug(tl.loc("AzureRESTRequestError", err.message));
             reject(tl.loc("AzureRESTRequestError", err.message));
           } else {
-            console.log(tl.loc("AzureSearchIndexesFound", curIndex.fields.length));
+            console.log(tl.loc("AzureSearchIndexFound", curIndex.name, curIndex.fields.length));
             resolve (curIndex);
           }
         });
@@ -131,7 +128,7 @@ export class azIndexerController {
       try{
         let options: UrlBasedRequestPrepareOptions = {
           method: 'DELETE',
-          url: `https://${this.indexOptions.azsearchName}.search.windows.net/indexers/${this.indexOptions.indexName}?api-version=${AZSEARCH_DATAAPI_VERSION}`,
+          url: `https://${this.indexOptions.azsearchName}.search.windows.net/indexes/${this.indexOptions.indexName}?api-version=${AZSEARCH_DATAAPI_VERSION}`,
           serializationMapper: null,
           deserializationMapper: null,
           headers: {'Content-Type': 'application/json', 'api-key': `${this.asClient.azureSearchAdminKey}`}
@@ -153,40 +150,12 @@ export class azIndexerController {
     });
   }
 
-  public listIndexers(): Promise<Index[]> {
-    return new Promise<Index[]>(async (resolve, reject) => {
-      try{
-        let options: UrlBasedRequestPrepareOptions = {
-          method: 'GET',
-          url: `https://${this.indexOptions.azsearchName}.search.windows.net/indexers?api-version=${AZSEARCH_DATAAPI_VERSION}`,
-          serializationMapper: null,
-          deserializationMapper: null,
-          headers: {'Content-Type': 'application/json', 'api-key': `${this.asClient.azureSearchAdminKey}`}
-        };
-
-        let request = await this.asClient.azureClient.sendRequest(options, (err, result: any, request, response) => {
-          let indexersList: Index[] = result.value;
-          if (err) {
-            tl.debug(tl.loc("AzureRESTRequestError", err.message));
-            reject(tl.loc("AzureRESTRequestError", err.message));
-          } else if (response.statusCode!=200) {
-            tl.debug(tl.loc("AzureRESTRequestError", err.message));
-            reject(tl.loc("AzureRESTRequestError", err.message));
-          } else {
-            console.log(tl.loc("AzureSearchIndexesFound", indexersList.length));
-            resolve (indexersList);
-          }
-        });
-      } catch(error) { reject(error); }
-    });
-  }
-
   public getIndexStatistics(): Promise<IndexStatistics> {
     return new Promise<IndexStatistics>(async (resolve, reject) => {
       try{
         let options: UrlBasedRequestPrepareOptions = {
           method: 'GET',
-          url: `https://${this.indexOptions.azsearchName}.search.windows.net/indexers/${this.indexOptions.indexName}/status?api-version=${AZSEARCH_DATAAPI_VERSION}`,
+          url: `https://${this.indexOptions.azsearchName}.search.windows.net/indexes/${this.indexOptions.indexName}/stats?api-version=${AZSEARCH_DATAAPI_VERSION}`,
           serializationMapper: null,
           deserializationMapper: null,
           headers: {'Content-Type': 'application/json', 'api-key': `${this.asClient.azureSearchAdminKey}`}
@@ -201,7 +170,6 @@ export class azIndexerController {
             reject(tl.loc("AzureSearchBadRequest", result.error.message));
           } else {
             let statusResult: IndexStatistics = result as IndexStatistics;
-            //TOREVIEW
             console.log(tl.loc("AzureSearchIndexStatistics"));
             resolve (statusResult);
           }
@@ -210,15 +178,21 @@ export class azIndexerController {
     });
   }
 
-  public analyzeText(): Promise<boolean> {
-    return new Promise<boolean>(async (resolve, reject) => {
+  public analyzeText(): Promise<TextAnalyzeResult> {
+    return new Promise<TextAnalyzeResult>(async (resolve, reject) => {
       try{
+        if(this.indexOptions.payloadPath){
+          this.indexOptions.payload = fs.readFileSync(this.indexOptions.payloadPath, 'utf8');
+        }
+
         let options: UrlBasedRequestPrepareOptions = {
           method: 'POST',
-          url: `https://${this.indexOptions.azsearchName}.search.windows.net/indexers/${this.indexOptions.indexName}/run?api-version=${AZSEARCH_DATAAPI_VERSION}`,
+          url: `https://${this.indexOptions.azsearchName}.search.windows.net/indexes/${this.indexOptions.indexName}/analyze?api-version=${AZSEARCH_DATAAPI_VERSION}`,
           serializationMapper: null,
           deserializationMapper: null,
-          headers: {'Content-Type': 'application/json', 'api-key': `${this.asClient.azureSearchAdminKey}`}
+          headers: {'Content-Type': 'application/json', 'api-key': `${this.asClient.azureSearchAdminKey}`},
+          body: this.indexOptions.payload,
+          disableJsonStringifyOnBody: true
         };
 
         let request = await this.asClient.azureClient.sendRequest(options, (err, result: any, request, response) => {
@@ -229,8 +203,9 @@ export class azIndexerController {
             tl.debug(tl.loc("AzureSearchBadRequest", result.error.message));
             reject(tl.loc("AzureSearchBadRequest", result.error.message));
           } else {
-            console.log(tl.loc("AzureSearchIndexerRun"), this.indexOptions.indexName);
-            resolve (true);
+            let statusResult: TextAnalyzeResult = result as TextAnalyzeResult;
+            console.log(tl.loc("AzureSearchIndexTextAnalyzed"), this.indexOptions.indexName);
+            resolve (statusResult);
           }
         });
       } catch(error) { reject(error); }

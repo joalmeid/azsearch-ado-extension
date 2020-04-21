@@ -18,7 +18,8 @@ export class IndexOperationTaskParameters {
     public jsonPayloadPath?: string;
     public inlineJsonPayload?: string;
     public indexName: string;
-
+    public allowIndexDowntime: boolean;
+    
     public async getDatasourceOperationTaskParameters() : Promise<IndexOperationTaskParameters> {
       this.connectedServiceName = tl.getInput('ConnectedServiceName', true);
       if(this.connectedServiceName==='debug'){ // local debug
@@ -42,7 +43,8 @@ export class IndexOperationTaskParameters {
       this.jsonPayloadPath = tl.getInput('JsonPayloadPath', false);
       this.inlineJsonPayload = tl.getInput('InlineJsonPayload', false);
       this.indexName = tl.getInput('IndexName', false);
-  
+      this.allowIndexDowntime = tl.getBoolInput('AllowIndexDowntime', false);
+      
       // //Print input variables values
       // tl.debug(tl.loc("ParsedTaskInputsLabel"));
       // tl.debug(tl.loc("InputsconnectedServiceNameLabel", this.connectedServiceName));
@@ -59,6 +61,7 @@ export class IndexOperationTaskParameters {
       // tl.debug(tl.loc("InputJsonPayloadPathLabel", this.jsonPayloadPath));
       // tl.debug(tl.loc("InputInlineJsonPayloadLabel", this.inlineJsonPayload));
       // tl.debug(tl.loc("InputIndexNameLabel", this.indexerName));
+      // tl.debug(tl.loc("AllowIndexDowntimeLabel", this.allowIndexDowntime));
 
       return this;
     }
