@@ -14,6 +14,19 @@
       "path": "azsearch-indexer-operation-task"
     },
     {
+      "path": "azsearch-index-operation-task"
+    },
+    {
+      "path": "azsearch-doc-operation-task"
+    },
+    {
+      "path": "azsearch-skillset-operation-task"
+    },
+    {
+      "path": "azsearch-synonym-operation-task"
+    },
+    
+    {
       "path": "static/images",
       "addressable": true
     }
