@@ -1,0 +1,24 @@
+{
+  "loc.friendlyName": "Azure Cognitive Search Synonym Operation",
+  "loc.helpMarkDown": "[Learn more about this task](http://aka.ms/azsearch-devops/wiki)",
+  "loc.description": "Execute an Azure Cognitive Search Document operation",
+  "loc.instanceNameFormat": "Document Operation: $(DocumentOperation)",
+  "loc.releaseNotes": "Works with cross-platform agents (Linux, macOS, or Windows)",
+  "loc.input.label.ConnectedServiceName": "Azure subscription",
+  "loc.input.help.ConnectedServiceName": "Select the Azure subscription where the Azure Search resource is provisioned.",
+  "loc.input.label.ResourceGroupName": "Resource group"
+  "loc.input.help.ResourceGroupName": "Enter or Select the Azure Resource Group that contains the Azure Cognitive Search specified above."
+
+  "loc.input.label.AzureCognitiveSearch": "Azure Cognitive Search resource"
+  "loc.input.help.AzureCognitiveSearch": "Select an Azure Cognitive Search in the selected Azure Subscription."
+  "loc.input.label.DocumentOperation": "Operation"
+  "loc.input.help.DocumentOperation": "Document Operation to execute"
+  "loc.input.label.JsonPayloadLocation": "Json Location"
+  "loc.input.help.JsonPayloadLocation": "Type of Json Payload: File path or Inline Json"
+  "loc.input.label.JsonPayloadPath": "Json File Path"
+  "loc.input.help.JsonPayloadPath": "Fully qualified path of the Json payload file or a path relative to the the default working directory"
+  "loc.input.label.InlineJsonPayload": "Inline Json Payload"
+  "loc.input.help.InlineJsonPayload": "You can write your Json payload inline here."
+  "loc.input.label.SynonymMapName": "Synonym Map Name"
+  "loc.input.help.SynonymMapName": "The Synonym Map Name. The name must be lower case, start with a letter or number, have no slashes or dots, and be less than 128 characters. After starting the name with a letter or number, the rest of the name can include any letter, number and dashes, as long as the dashes are not consecutive.After starting the name with a letter or number, the rest of the name can include any letter, number and dashes, as long as the dashes are not consecutive."
+}
