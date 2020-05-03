@@ -1,16 +1,10 @@
 import * as tl from 'azure-pipelines-task-lib/task';
 import * as fs from 'fs';
-const fsPromises = require('fs').promises;
-// const { promisify } = require("util");
-import * as msRestAzure from 'ms-rest-azure';
-import { AzureServiceClient } from 'ms-rest-azure';
 import { UrlBasedRequestPrepareOptions } from 'ms-rest';
 import { IndexerOperationTaskParameters } from '../azure-devops-models';
 import {
   AZSEARCH_DATAAPI_VERSION,
-  AZSEARCH_MGMTAPI_VERSION,
   AzureSearchClient,
-  AdminKeyResult,
   IndexerOptions,
   DataSource,
   Indexer,

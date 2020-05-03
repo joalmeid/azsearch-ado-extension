@@ -1,12 +1,13 @@
 import * as tl from 'azure-pipelines-task-lib/task';
 import * as path from 'path';
+import * as az from '../../common';
 
 import { SynonymMapOperationTaskParameters } from './azure-devops-models';
 import { azSynonymMapController } from './operations';
 
 async function run(): Promise<void> {
   try {
-    let taskManifestPath = path.join(__dirname, 'task.json');
+    let taskManifestPath = path.join(__dirname, '../../../task.json');
     tl.debug(`Setting resource path to ${taskManifestPath}`);
     tl.setResourcePath(taskManifestPath);
 
@@ -17,7 +18,14 @@ async function run(): Promise<void> {
     let operationOutput: any;
 
     // Authenticate on Azure REST Api
-    await synmController.setupAzure();
+    synmController.asClient = await az.setupAzure(
+      taskParameters.clientId,
+      taskParameters.clientSecret,
+      taskParameters.tenantId,
+      taskParameters.subscriptionId,
+      taskParameters.resourceGroupName,
+      taskParameters.azsearchName
+    );
 
     // Synonym Map Operation Task
     console.log(

@@ -1,12 +1,13 @@
 import * as tl from 'azure-pipelines-task-lib/task';
 import * as path from 'path';
+import * as az from '../../common';
 
 import { DocumentOperationTaskParameters } from './azure-devops-models';
 import { azDocumentController } from './operations';
 
 async function run(): Promise<void> {
   try {
-    let taskManifestPath = path.join(__dirname, 'task.json');
+    let taskManifestPath = path.join(__dirname, '../../../task.json');
     tl.debug(`Setting resource path to ${taskManifestPath}`);
     tl.setResourcePath(taskManifestPath);
 
@@ -17,7 +18,14 @@ async function run(): Promise<void> {
     let operationOutput: any;
 
     // Authenticate on Azure REST Api
-    await docController.setupAzure();
+    docController.asClient = await az.setupAzure(
+      taskParameters.clientId,
+      taskParameters.clientSecret,
+      taskParameters.tenantId,
+      taskParameters.subscriptionId,
+      taskParameters.resourceGroupName,
+      taskParameters.azsearchName
+    );
 
     // Document Operation Task
     console.log(

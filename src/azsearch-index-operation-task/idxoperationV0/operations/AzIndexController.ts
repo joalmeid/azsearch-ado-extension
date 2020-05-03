@@ -1,17 +1,11 @@
 import * as tl from 'azure-pipelines-task-lib/task';
 import * as path from 'path';
 import * as fs from 'fs';
-const fsPromises = require('fs').promises;
-// const { promisify } = require("util");
-import * as msRestAzure from 'ms-rest-azure';
-import { AzureServiceClient } from 'ms-rest-azure';
-import { IncomingMessage, UrlBasedRequestPrepareOptions } from 'ms-rest';
+import { UrlBasedRequestPrepareOptions } from 'ms-rest';
 import { IndexOperationTaskParameters } from '../azure-devops-models';
 import {
   AZSEARCH_DATAAPI_VERSION,
-  AZSEARCH_MGMTAPI_VERSION,
   AzureSearchClient,
-  AdminKeyResult,
   IndexOptions,
   Index,
   IndexStatistics,
@@ -20,7 +14,7 @@ import {
 
 export class azIndexerController {
   private taskParameters: IndexOperationTaskParameters;
-  private asClient: AzureSearchClient;
+  public asClient: AzureSearchClient;
   private indexOptions: IndexOptions;
 
   constructor(taskParameters: IndexOperationTaskParameters) {
@@ -293,106 +287,6 @@ export class azIndexerController {
                 this.indexOptions.indexName
               );
               resolve(statusResult);
-            }
-          }
-        );
-      } catch (error) {
-        reject(error);
-      }
-    });
-  }
-
-  // Azure
-  public async setupAzure(): Promise<void> {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        this.asClient.azureClient = await this.LoginAzure(
-          this.taskParameters.clientId,
-          this.taskParameters.clientSecret,
-          this.taskParameters.tenantId
-        );
-        this.asClient.azureSearchAdminKey = await this.GetAzureSearchKey(
-          this.asClient.azureClient,
-          this.taskParameters.subscriptionId,
-          this.taskParameters.resourceGroupName,
-          this.taskParameters.azsearchName
-        );
-        resolve();
-      } catch (error) {
-        reject(error);
-      }
-    });
-  }
-
-  private async LoginAzure(
-    clientId: string,
-    secret: string,
-    domain: string
-  ): Promise<AzureServiceClient> {
-    return new Promise<AzureServiceClient>(async (resolve, reject) => {
-      try {
-        await msRestAzure.loginWithServicePrincipalSecret(
-          clientId,
-          secret,
-          domain,
-          (err, creds) => {
-            if (err) {
-              tl.debug(tl.loc('AzureRESTAuthenticationError', err.message));
-              reject(tl.loc('AzureRESTAuthenticationError', err.message));
-            }
-            resolve(new AzureServiceClient(creds, {}));
-          }
-        );
-      } catch (error) {
-        reject(error);
-      }
-    });
-  }
-
-  private async GetAzureSearchKey(
-    azureClient: AzureServiceClient,
-    subscriptionId: string,
-    resourceGroupName: string,
-    searchServiceName: string
-  ): Promise<string> {
-    return new Promise<string>(async (resolve, reject) => {
-      try {
-        let options: UrlBasedRequestPrepareOptions = {
-          method: 'POST',
-          url: `https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${resourceGroupName}/providers/Microsoft.Search/searchServices/${searchServiceName}/listAdminKeys?api-version=${AZSEARCH_MGMTAPI_VERSION}`,
-          serializationMapper: null,
-          deserializationMapper: null
-        };
-
-        let request = await azureClient.sendRequest(
-          options,
-          (err, result: AdminKeyResult, request, response) => {
-            if (err) {
-              tl.debug(tl.loc('AzureRESTRequestError', err.message));
-              reject(tl.loc('AzureRESTRequestError', err.message));
-            } else if (response.statusCode == 404) {
-              tl.debug(
-                tl.loc(
-                  'AzureResourceNotFound',
-                  subscriptionId,
-                  resourceGroupName,
-                  searchServiceName
-                )
-              );
-              reject(
-                tl.loc(
-                  'AzureResourceNotFound',
-                  subscriptionId,
-                  resourceGroupName,
-                  searchServiceName
-                )
-              );
-            } else if (response.statusCode != 200) {
-              tl.debug(tl.loc('AzureRESTRequestError', response.statusMessage));
-              reject(tl.loc('AzureRESTRequestError', response.statusMessage));
-            } else {
-              tl.debug(tl.loc('AzureSearchAdminKeyResult'));
-              resolve(result.primaryKey);
             }
           }
         );
