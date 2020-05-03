@@ -161,7 +161,7 @@
   ],
   "execution": {
     "Node": {
-      "target": "main.js"
+      "target": "lib/azsearch-indexer-operation-task/idxroperationV0/main.js"
     }
   },
   "messages": {
