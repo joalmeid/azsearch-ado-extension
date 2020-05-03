@@ -2,7 +2,6 @@
   "name": "azsearch-indexeroperation-task",
   "main": "main.js",
   "dependencies": {
-    "azure-devops-node-api": "^7.0.0",
     "azure-pipelines-task-lib": "2.8.0",
     "ms-rest-azure": "^3.0.0"
   }

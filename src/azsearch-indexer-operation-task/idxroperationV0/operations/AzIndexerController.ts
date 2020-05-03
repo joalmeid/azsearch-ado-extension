@@ -5,7 +5,7 @@ const fsPromises = require('fs').promises;
 // const { promisify } = require("util");
 import * as msRestAzure from 'ms-rest-azure';
 import { AzureServiceClient } from 'ms-rest-azure';
-import { IncomingMessage, UrlBasedRequestPrepareOptions } from 'ms-rest';
+import { UrlBasedRequestPrepareOptions } from 'ms-rest';
 import { IndexerOperationTaskParameters } from '../azure-devops-models';
 import {
   AZSEARCH_DATAAPI_VERSION,
@@ -16,11 +16,11 @@ import {
   DataSource,
   Indexer,
   IndexerStatus
-} from '../../../common';
+} from '../common';
 
 export class azIndexerController {
   private taskParameters: IndexerOperationTaskParameters;
-  private asClient: AzureSearchClient;
+  public asClient: AzureSearchClient;
   private indexerOptions: IndexerOptions;
 
   constructor(taskParameters: IndexerOperationTaskParameters) {

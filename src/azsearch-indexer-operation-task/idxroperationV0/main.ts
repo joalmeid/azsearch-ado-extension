@@ -1,6 +1,7 @@
 import * as tl from 'azure-pipelines-task-lib/task';
 import * as path from 'path';
 import * as fs from 'fs';
+import * az from '../common';
 
 import { IndexerOperationTaskParameters } from './azure-devops-models';
 import { azIndexerController } from './operations';
@@ -18,6 +19,7 @@ async function run(): Promise<void> {
     let operationOutput: any;
 
     // Authenticate on Azure REST Api
+    dsController.asClient = az.setupAzure();
     await dsController.setupAzure();
 
     // Indexer Operation Task
