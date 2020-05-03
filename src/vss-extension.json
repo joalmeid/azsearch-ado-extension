@@ -54,10 +54,10 @@
   ],
   "screenshots": [
     {
-      "path": "static/images/marketplace-azsearch-ado-datasource-task-yaml.png"
+      "path": "static/images/marketplace-azsearch-ado-indexer-operation-task-yaml.png"
     },
     {
-      "path": "static/images/marketplace-azsearch-ado-index-task-ui-classical.png"
+      "path": "static/images/marketplace-azsearch-ado-indexer-operation-task-ui-classical.png"
     },
     {
       "path": "static/images/azsearch-extension-banner-128.png"
