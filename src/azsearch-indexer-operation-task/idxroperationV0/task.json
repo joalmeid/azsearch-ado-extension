@@ -11,7 +11,7 @@
   "version": {
     "Major": 1,
     "Minor": 0,
-    "Patch": 1
+    "Patch": 3
   },
   "demands": [],
   "visibility": [
@@ -161,7 +161,8 @@
   ],
   "execution": {
     "Node": {
-      "target": "lib/azsearch-indexer-operation-task/idxroperationV0/main.js"
+      "target": "lib/azsearch-indexer-operation-task/idxroperationV0/main.js",
+      "argumentFormat": ""
     }
   },
   "messages": {

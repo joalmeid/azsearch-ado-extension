@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "azsearch-ado-extension",
   "name": "Azure Search Extension for Azure Pipelines",
-  "version": "0.0.17",
+  "version": "0.0.22",
   "scopes": [],
   "description": "Azure Cognitive Search Extension for your CI/CD related pipelnes on Azure Devops.",
   "publisher": "joalmeid",
