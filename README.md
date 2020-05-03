@@ -6,7 +6,7 @@
 This extension allows you to include [**Azure Cognitive Search**](https://docs.microsoft.com/en-us/azure/search/) operations within your DevOps practices - specifically, in your CICD pipelines. Currently the extension includes all main operations around the main Azure Search concepts like **Data Source**, **Index** and **Indexer**.
 It doesn't matter if you're more experienced with Azure Pipelines with the **YAML pipelines** or **Classic Editor**.
 
-![Azure Search Extension Tasks](https://todo-image.uri/image.png)
+![Azure Search Extension Tasks](https://user-images.githubusercontent.com/4800035/80922841-8928d280-8d77-11ea-844a-743f206f76f8.png)
 
 ### Highlights ###
 > :boom: This extension is ***cross platform***. You can run it from **Windows**, **Linux** or **macOS** self-hosted agents.
@@ -17,17 +17,26 @@ It doesn't matter if you're more experienced with Azure Pipelines with the **YAM
 
 The Azure Search Extension include the following contributions:
 
-1. Data Source Operations Task
+1. Indexer Operations Task
 
-![Data Source Operations Task](https://todo-image.uri/image.png)
+![Indexer Operations Task](https://user-images.githubusercontent.com/4800035/80922841-8928d280-8d77-11ea-844a-743f206f76f8.png)
 
 2. Index Operations Task
 
-![Index Operations Task](https://todo-image.uri/image.png)
+![Index Operations Task](https://user-images.githubusercontent.com/4800035/80923145-947cfd80-8d79-11ea-9755-4c579932bd3a.png)
 
-2. Indexer Operations Task
+2. Synonym Map Operations Task
 
-![Indexer Operations Task](https://todo-image.uri/image.png)
+![Synonym Map Operations Task](https://user-images.githubusercontent.com/4800035/80923147-95ae2a80-8d79-11ea-8363-25319b243209.png)
+
+4. Skillset Operations Task
+
+![Skillset Operations Task](https://user-images.githubusercontent.com/4800035/80923146-95ae2a80-8d79-11ea-8611-ae7e354034bb.png)
+
+5. Document Operations Task
+
+![Document Operations Task](https://user-images.githubusercontent.com/4800035/80923148-95ae2a80-8d79-11ea-98cb-ffa3bb047a30.png)
+
 
 ## Release status
 
