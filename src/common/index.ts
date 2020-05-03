@@ -5,3 +5,4 @@ export * from './synonymMap';
 export * from './indexes';
 export * from './document';
 export * from './types';
+export * from './azure';

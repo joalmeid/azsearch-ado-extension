@@ -1,14 +1,13 @@
 import * as tl from 'azure-pipelines-task-lib/task';
 import * as path from 'path';
-import * as fs from 'fs';
-import * az from '../common';
+import * as az from '../../common';
 
 import { IndexerOperationTaskParameters } from './azure-devops-models';
 import { azIndexerController } from './operations';
 
 async function run(): Promise<void> {
   try {
-    let taskManifestPath = path.join(__dirname, 'task.json');
+    let taskManifestPath = path.join(__dirname, '../../../task.json');
     tl.debug(`Setting resource path to ${taskManifestPath}`);
     tl.setResourcePath(taskManifestPath);
 
@@ -19,8 +18,14 @@ async function run(): Promise<void> {
     let operationOutput: any;
 
     // Authenticate on Azure REST Api
-    dsController.asClient = az.setupAzure();
-    await dsController.setupAzure();
+    dsController.asClient = await az.setupAzure(
+      taskParameters.clientId,
+      taskParameters.clientSecret,
+      taskParameters.tenantId,
+      taskParameters.subscriptionId,
+      taskParameters.resourceGroupName,
+      taskParameters.azsearchName
+    );
 
     // Indexer Operation Task
     console.log(
