@@ -2,13 +2,12 @@ import * as tl from 'azure-pipelines-task-lib/task';
 import * as path from 'path';
 import * as fs from 'fs';
 
-import { IndexOperationTaskParameters } from './azure-devops-models'
-import { azIndexerController } from './operations'
+import { IndexOperationTaskParameters } from './azure-devops-models';
+import { azIndexerController } from './operations';
 
 async function run(): Promise<void> {
-
   try {
-    let taskManifestPath = path.join(__dirname, "task.json");
+    let taskManifestPath = path.join(__dirname, 'task.json');
     tl.debug(`Setting resource path to ${taskManifestPath}`);
     tl.setResourcePath(taskManifestPath);
 
@@ -22,36 +21,37 @@ async function run(): Promise<void> {
     await ixController.setupAzure();
 
     // Indexer Operation Task
-    console.log(tl.loc("IndexOperationLabel", taskParameters.indexOperation));
-    switch (taskParameters.indexOperation){
-      case 'CreateUpdateIndex': 
+    console.log(tl.loc('IndexOperationLabel', taskParameters.indexOperation));
+    switch (taskParameters.indexOperation) {
+      case 'CreateUpdateIndex':
         operationOutput = await ixController.createUpdateIndex();
         break;
-      case 'ListIndexes': 
+      case 'ListIndexes':
         operationOutput = await ixController.listIndexes();
         break;
-      case 'GetIndex': 
+      case 'GetIndex':
         operationOutput = await ixController.getIndex();
         break;
-      case 'DeleteIndex': 
+      case 'DeleteIndex':
         operationOutput = await ixController.deleteIndex();
         break;
-      case 'GetIndexStatistics': 
+      case 'GetIndexStatistics':
         operationOutput = await ixController.getIndexStatistics();
         break;
-      case 'AnalyzeText': 
+      case 'AnalyzeText':
         operationOutput = await ixController.analyzeText();
         break;
-    } 
+    }
 
     // Set output variable
-    let operationOutputString: string = operationOutput ? JSON.stringify(operationOutput) : 'No Output';
+    let operationOutputString: string = operationOutput
+      ? JSON.stringify(operationOutput)
+      : 'No Output';
     console.log(tl.loc('IndexOptionOutput', operationOutputString));
     tl.setVariable('IndexOptionOutput', operationOutputString);
-    
-    tl.setResult(tl.TaskResult.Succeeded, "");
-  }
-  catch(error) {
+
+    tl.setResult(tl.TaskResult.Succeeded, '');
+  } catch (error) {
     tl.setResult(tl.TaskResult.Failed, error);
   }
 }

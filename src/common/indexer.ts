@@ -15,9 +15,8 @@ export class Indexer {
   private _outputFieldMappings?: FieldMapping[];
   private _isDisabled?: boolean;
 
-  constructor(name: string) {
-  }
-  
+  constructor(name: string) {}
+
   /**
    * The name of the indexer.
    */
@@ -203,8 +202,11 @@ export type IndexerStatus = 'unknown' | 'error' | 'running';
  * @readonly
  * @enum {string}
  */
-export type IndexerExecutionStatus = 'transientFailure' | 'success' | 'inProgress' | 'reset';
-
+export type IndexerExecutionStatus =
+  | 'transientFailure'
+  | 'success'
+  | 'inProgress'
+  | 'reset';
 
 /**
  * Represents the result of an individual indexer execution.
@@ -326,7 +328,6 @@ export interface ItemError {
    */
   readonly documentationLink?: string;
 }
-
 
 /**
  * Represents an item-level warning.

@@ -15,9 +15,8 @@ export class Index {
   // private _charFilters?: CharFilterUnion[];
   // private _encryptionKey?: EncryptionKey;
 
-  constructor(name: string) {
-  }
-  
+  constructor(name: string) {}
+
   get name(): string {
     return this._name;
   }
@@ -58,12 +57,25 @@ export class Index {
   // get encryptionKey(): EncryptionKey {
   //   return this._encryptionKey;
   // }
-
-  
-
 }
 
-export type DataType = 'Edm.String' | 'Edm.Int32' | 'Edm.Int64' | 'Edm.Double' | 'Edm.Boolean' | 'Edm.DateTimeOffset' | 'Edm.GeographyPoint' | 'Edm.ComplexType' | 'Collection(Edm.String)' | 'Collection(Edm.Int32)' | 'Collection(Edm.Int64)' | 'Collection(Edm.Double)' | 'Collection(Edm.Boolean)' | 'Collection(Edm.DateTimeOffset)' | 'Collection(Edm.GeographyPoint)' | 'Collection(Edm.ComplexType)';
+export type DataType =
+  | 'Edm.String'
+  | 'Edm.Int32'
+  | 'Edm.Int64'
+  | 'Edm.Double'
+  | 'Edm.Boolean'
+  | 'Edm.DateTimeOffset'
+  | 'Edm.GeographyPoint'
+  | 'Edm.ComplexType'
+  | 'Collection(Edm.String)'
+  | 'Collection(Edm.Int32)'
+  | 'Collection(Edm.Int64)'
+  | 'Collection(Edm.Double)'
+  | 'Collection(Edm.Boolean)'
+  | 'Collection(Edm.DateTimeOffset)'
+  | 'Collection(Edm.GeographyPoint)'
+  | 'Collection(Edm.ComplexType)';
 
 /**
  * Represents a field in an index definition, which describes the name, data type, and search
@@ -184,13 +196,11 @@ export interface Field {
  * always be up-to-date.
  */
 export class IndexStatistics {
-
   private _documentCount?: number; /* The number of documents in the index. */
-  private _storageSize:number; /* The amount of storage in bytes consumed by the index. */
+  private _storageSize: number; /* The amount of storage in bytes consumed by the index. */
 
-  constructor(name: string) {
-  }
-  
+  constructor(name: string) {}
+
   get documentCount(): number {
     return this._documentCount;
   }
@@ -205,15 +215,13 @@ export interface TextAnalyzeResult {
 }
 
 export class Token {
-
   private _token: string; /* token */
-  private _startOffset:number; /* index of the first character of the token. */
-  private _endOffset:number; /* index of the last character of the token. */
-  private _position:number; /* position of the token in the input text. */
+  private _startOffset: number; /* index of the first character of the token. */
+  private _endOffset: number; /* index of the last character of the token. */
+  private _position: number; /* position of the token in the input text. */
 
-  constructor(name: string) {
-  }
-  
+  constructor(name: string) {}
+
   get token(): string {
     return this._token;
   }

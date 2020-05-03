@@ -10,9 +10,8 @@ export class DataSource {
   private _dataChangeDetectionPolicy: string;
   private _dataDeletionDetectionPolicy: string;
 
-  constructor(name: string) {
-  }
-  
+  constructor(name: string) {}
+
   get name(): string {
     return this._name;
   }
@@ -40,7 +39,12 @@ export class DataSource {
  * @readonly
  * @enum {string}
  */
-export type DataSourceType = 'azuresql' | 'cosmosdb' | 'azureblob' | 'azuretable' | 'mysql';
+export type DataSourceType =
+  | 'azuresql'
+  | 'cosmosdb'
+  | 'azureblob'
+  | 'azuretable'
+  | 'mysql';
 
 /**
  * Represents credentials that can be used to connect to a datasource.

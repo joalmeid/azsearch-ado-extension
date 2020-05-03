@@ -1,15 +1,19 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
-    "target": "ES6",
     "module": "commonjs",
-    "types": ["node"],
+    "target": "ES6",
     "sourceMap": true,
     "strict": true,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
     "noImplicitAny": false,
-    "strictNullChecks": false
+    "removeComments": true,
+    "types": ["node"],
+    "moduleResolution": "node",
+    "esModuleInterop": true
   },
   "include": [
-    "common/*",
-    "azsearch*task/**/*"
+    "./common/*",
   ]
 }

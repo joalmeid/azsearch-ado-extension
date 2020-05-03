@@ -1,6 +1,4 @@
-export interface Document {
-
-}
+export interface Document {}
 
 /**
  * Represents a AddUpdateDeleteDocument Document Operation result.
@@ -14,7 +12,7 @@ export class DocumentOpResult {
   constructor(key: string) {
     this._key = key;
   }
-  
+
   /**
    * The name of the indexer.
    */

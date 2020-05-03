@@ -1,0 +1,12 @@
+{
+  "name": "azsearch-ado-extension.common",
+  "description": "common",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joalmeid/azsearch-ado-extension.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ms-rest-azure": "^3.0.0"
+  }
+}

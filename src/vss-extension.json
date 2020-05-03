@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "azsearch-ado-extension",
   "name": "Azure Search Extension for Azure Pipelines",
-  "version": "0.0.1",
+  "version": "0.0.14",
   "scopes": [],
   "description": "Azure Cognitive Search Extension for your CI/CD related pipelnes on Azure Devops.",
   "publisher": "joalmeid",
@@ -11,13 +11,13 @@
   ],
   "files": [
     {
-      "path": "azsearch-indexer-operation-task"
+      "path": "azsearch-doc-operation-task"
     },
     {
       "path": "azsearch-index-operation-task"
     },
     {
-      "path": "azsearch-doc-operation-task"
+      "path": "azsearch-indexer-operation-task"
     },
     {
       "path": "azsearch-skillset-operation-task"
@@ -25,7 +25,6 @@
     {
       "path": "azsearch-synonym-operation-task"
     },
-    
     {
       "path": "static/images",
       "addressable": true

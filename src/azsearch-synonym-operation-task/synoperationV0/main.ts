@@ -1,14 +1,12 @@
 import * as tl from 'azure-pipelines-task-lib/task';
 import * as path from 'path';
-import * as fs from 'fs';
 
-import { SynonymMapOperationTaskParameters } from './azure-devops-models'
-import { azSynonymMapController } from './operations'
+import { SynonymMapOperationTaskParameters } from './azure-devops-models';
+import { azSynonymMapController } from './operations';
 
 async function run(): Promise<void> {
-
   try {
-    let taskManifestPath = path.join(__dirname, "task.json");
+    let taskManifestPath = path.join(__dirname, 'task.json');
     tl.debug(`Setting resource path to ${taskManifestPath}`);
     tl.setResourcePath(taskManifestPath);
 
@@ -22,30 +20,33 @@ async function run(): Promise<void> {
     await synmController.setupAzure();
 
     // Synonym Map Operation Task
-    console.log(tl.loc("AzureSearchOperationExec", taskParameters.synonymMapOperation));
-    switch (taskParameters.synonymMapOperation){
-      case 'CreateUpdateSynonymMap': 
+    console.log(
+      tl.loc('AzureSearchOperationExec', taskParameters.synonymMapOperation)
+    );
+    switch (taskParameters.synonymMapOperation) {
+      case 'CreateUpdateSynonymMap':
         operationOutput = await synmController.createUpdateSynonymMap();
         break;
-      case 'ListSynonymMap': 
+      case 'ListSynonymMap':
         operationOutput = await synmController.listSynonymMap();
         break;
-      case 'GetSynonymMap': 
+      case 'GetSynonymMap':
         operationOutput = await synmController.getSynonymMap();
         break;
-      case 'DeleteSynonymMap': 
+      case 'DeleteSynonymMap':
         operationOutput = await synmController.deleteSynonymMap();
         break;
-    } 
+    }
 
     // Set output variable
-    let operationOutputString: string = operationOutput ? JSON.stringify(operationOutput) : 'No Output';
+    let operationOutputString: string = operationOutput
+      ? JSON.stringify(operationOutput)
+      : 'No Output';
     console.log(tl.loc('SynonymMapOptionOutput', operationOutputString));
     tl.setVariable('SynonymMapOptionOutput', operationOutputString);
-    
-    tl.setResult(tl.TaskResult.Succeeded, "");
-  }
-  catch(error) {
+
+    tl.setResult(tl.TaskResult.Succeeded, '');
+  } catch (error) {
     tl.setResult(tl.TaskResult.Failed, error);
   }
 }
