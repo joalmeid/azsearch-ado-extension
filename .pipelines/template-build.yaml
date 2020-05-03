@@ -16,17 +16,10 @@ steps:
   - task: Npm@1
     displayName: 'npm install'
     inputs:
-      workingDir: 'src'
-      verbose: false
-
-  - task: Npm@1
-    displayName: 'npm install-task-lib'
-    inputs:
       command: custom
       workingDir: 'src'
-      verbose: false
-      customCommand: 'run install-task-lib'
-    enabled: false
+      verbose: true
+      customCommand: 'run initdev'
 
   - task: Npm@1
     displayName: 'npm build'
@@ -34,7 +27,7 @@ steps:
       command: custom
       workingDir: 'src'
       verbose: true
-      customCommand: 'run build:clean'
+      customCommand: 'run build'
 
   - task: TfxInstaller@2
     displayName: 'Use Node CLI for Azure DevOps: v0.7.x'
