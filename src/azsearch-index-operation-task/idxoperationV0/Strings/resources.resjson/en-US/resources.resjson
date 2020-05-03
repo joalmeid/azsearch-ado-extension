@@ -1,0 +1,13 @@
+{
+  "loc.friendlyName": "Create Azure Search Datasource",
+  "loc.helpMarkDown": "[Learn more about this task](https://aka.ms/azsearch-devops/wiki)",
+  "loc.description": "Create Azure Search Datasource",
+  "loc.instanceNameFormat": "Create Azure Search Datasource",
+  "loc.releaseNotes": "Works with cross-platform agents (Linux, macOS, or Windows)",
+  "loc.input.label.ConnectedServiceName": "Azure subscription",
+  "loc.input.help.ConnectedServiceName": "Select the Azure subscription where to deploy the Blueprint. This can be an Azure Management Group or Subscription.",
+  "loc.input.label.DatasourceName": "Datasource Name"
+  "loc.input.help.DatasourceName": "Datasource name."
+  "loc.messages.CreatingBlueprint": "Creating Blueprint",
+  "loc.messages.PublishingBlueprint": "Publishing Blueprint"
+}

@@ -1,4 +1,6 @@
-Azure Search extension for Azure DevOps
+Azure Search Extension for Azure Pipelines
+
+Copyright (c) - present João Almeida
 
 All rights reserved.
 

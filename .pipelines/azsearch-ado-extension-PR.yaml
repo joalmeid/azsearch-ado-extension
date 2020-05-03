@@ -1,0 +1,47 @@
+###################################################
+#
+# Azure Search Extension for Azure Pipelines
+# (Azure Pipelines) PR
+#
+###################################################
+
+pr:
+  branches:
+    include:
+    - master
+    - releases/*
+  paths:
+    include:
+    - src/*
+    exclude:
+    - .pipelines/*
+    - .github/*
+
+variables:
+  agentPool: 'ubuntu-latest'
+
+stages:
+- stage: PRValidation
+  displayName: Pull Request Validation
+  jobs:
+
+  - job: PRBuild
+    displayName: Build
+    pool: 
+      vmImage: $(agentPool)
+
+    steps:
+
+    - task: Npm@1
+      displayName: 'npm install'
+      inputs:
+        workingDir: 'src'
+        verbose: false
+
+    - task: Npm@1
+      displayName: 'npm build'
+      inputs:
+        command: custom
+        workingDir: 'src'
+        verbose: false
+        customCommand: 'run build'

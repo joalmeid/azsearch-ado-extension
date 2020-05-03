@@ -1,0 +1,8 @@
+{
+  "name": "azsearch-synonym-operation-task",
+  "main": "main.js",
+  "dependencies": {
+    "azure-pipelines-task-lib": "2.8.0",
+    "ms-rest-azure": "^3.0.0"
+  }
+}
