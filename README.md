@@ -19,7 +19,7 @@ The Azure Search Extension include the following contributions:
 
 1. Indexer Operations Task
 
-![Indexer Operations Task![Indexer Operations Task](https://user-images.githubusercontent.com/4800035/80950487-de9fc680-8ded-11ea-9378-4f11525ebf33.png)
+![Indexer Operations Task](https://user-images.githubusercontent.com/4800035/80950487-de9fc680-8ded-11ea-9378-4f11525ebf33.png)
 
 1. Index Operations Task
 
