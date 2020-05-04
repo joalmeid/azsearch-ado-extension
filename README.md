@@ -21,19 +21,18 @@ The Azure Search Extension include the following contributions:
 
 ![Indexer Operations Task](https://user-images.githubusercontent.com/4800035/80950487-de9fc680-8ded-11ea-9378-4f11525ebf33.png)
 
-1. Index Operations Task
-
+**1. Index Operations Task**
 ![Index Operations Task](https://user-images.githubusercontent.com/4800035/80923145-947cfd80-8d79-11ea-9755-4c579932bd3a.png)
 
-3. Synonym Map Operations Task
+**3. Synonym Map Operations Task**
 
 ![Synonym Map Operations Task](https://user-images.githubusercontent.com/4800035/80923147-95ae2a80-8d79-11ea-8363-25319b243209.png)
 
-4. Skillset Operations Task
+**4. Skillset Operations Task**
 
 ![Skillset Operations Task](https://user-images.githubusercontent.com/4800035/80923146-95ae2a80-8d79-11ea-8611-ae7e354034bb.png)
 
-5. Document Operations Task
+**5. Document Operations Task**
 
 ![Document Operations Task](https://user-images.githubusercontent.com/4800035/80923148-95ae2a80-8d79-11ea-98cb-ffa3bb047a30.png)
 
